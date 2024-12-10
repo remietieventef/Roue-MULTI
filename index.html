@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roue Cadeau</title>
+    <title>Roue de Noël Personnalisée</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-
-        /* Plan pour la vidéo */
+        /* Ajout pour le plan vidéo */
         #videoContainer {
             position: absolute;
             top: 0;
@@ -30,71 +24,13 @@
             border: none;
         }
 
-        /* Plan pour les roues */
-        #wheelContainer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            background: url('Roue Noel.jpg') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .wheels-container {
-            display: flex;
-            justify-content: space-between;
-            width: 90%;
-            margin-top: 50px;
-        }
-
-        .wheel {
+        /* Plan pour les roues (déjà existant, avec quelques ajustements) */
+        .container {
             text-align: center;
-            flex: 1;
-            margin: 0 10px;
+            position: relative;
+            z-index: 2; /* S'assurer que le plan roues est au-dessus par défaut */
         }
 
-        #spinButton1, #spinButton2, #spinButton3 {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: #ff6666;
-            color: white;
-            border-radius: 5px;
-        }
-
-        #result1, #result2, #result3 {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px;
-            border: 2px solid #000;
-            border-radius: 5px;
-            background-color: #ffeb3b;
-            text-align: center;
-            width: 200px;
-        }
-
-        .top-right {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px;
-            background-color: #555;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* Plan pour la pop-up */
         .popup {
             position: fixed;
             top: 0;
@@ -103,51 +39,14 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
             display: none;
-            z-index: 3;
+            z-index: 3; /* Plan pop-up */
             justify-content: center;
             align-items: center;
-        }
-
-        .popup-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .popup-section {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .popup-left, .popup-right {
-            width: 45%;
-        }
-
-        form input {
-            margin: 5px 0;
-            padding: 5px;
-            width: calc(100% - 20px);
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <!-- Plan vidéo -->
+    <!-- Conteneur pour la vidéo -->
     <div id="videoContainer">
         <iframe id="backgroundVideo" 
             src="https://www.youtube.com/embed/videoseries?si=ZEIQe56g8k_ox7Gm&list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT&autoplay=1&mute=1" 
@@ -158,65 +57,96 @@
         </iframe>
     </div>
 
-    <!-- Plan roues -->
-    <div id="wheelContainer">
+    <!-- Conteneur pour les roues -->
+    <div class="container">
+        <button id="customizeButton" class="top-right">Personnaliser</button>
+        
         <div class="wheels-container">
             <div class="wheel">
-                <canvas id="wheel1" width="300" height="300"></canvas>
-                <button id="spinButton1">Tourner la roue</button>
-                <div id="result1">Résultat: -</div>
+                <canvas id="wheelCanvas1" width="500" height="500"></canvas>
+                <button id="spinButton1">Tourner</button>
+                <div id="result1">Résultat: ?</div>
             </div>
             <div class="wheel">
-                <canvas id="wheel2" width="300" height="300"></canvas>
-                <button id="spinButton2">Tourner la roue</button>
-                <div id="result2">Résultat: -</div>
+                <canvas id="wheelCanvas2" width="500" height="500"></canvas>
+                <button id="spinButton2">Tourner</button>
+                <div id="result2">Résultat: ?</div>
             </div>
             <div class="wheel">
-                <canvas id="wheel3" width="300" height="300"></canvas>
-                <button id="spinButton3">Tourner la roue</button>
-                <div id="result3">Résultat: -</div>
+                <canvas id="wheelCanvas3" width="500" height="500"></canvas>
+                <button id="spinButton3">Tourner</button>
+                <div id="result3">Résultat: ?</div>
             </div>
         </div>
-        <button class="top-right" id="customizeButton">Personnaliser</button>
     </div>
 
-    <!-- Plan pop-up -->
+    <!-- Popup de personnalisation -->
     <div id="popup" class="popup">
         <div class="popup-content">
-            <h2>Personnalisation des roues</h2>
-            <!-- Section de personnalisation des roues ici -->
-            <button id="saveButton">Sauvegarder</button>
+            <h2>Personnalisez les cadeaux</h2>
+            <div class="popup-section">
+                <div class="popup-left">
+                    <h3>Roue 1</h3>
+                    <label for="gift1_1">Cadeau 1 :</label><input type="text" id="gift1_1" value="Cadeau 1"><br>
+                    <label for="gift2_1">Cadeau 2 :</label><input type="text" id="gift2_1" value="Cadeau 2"><br>
+                    <label for="gift3_1">Cadeau 3 :</label><input type="text" id="gift3_1" value="Cadeau 3"><br>
+                    <label for="gift4_1">Cadeau 4 :</label><input type="text" id="gift4_1" value="Cadeau 4"><br>
+                    <label for="gift5_1">Cadeau 5 :</label><input type="text" id="gift5_1" value="Cadeau 5"><br>
+                    <label for="gift6_1">Cadeau 6 :</label><input type="text" id="gift6_1" value="Cadeau 6"><br>
+                </div>
+                <div class="popup-right">
+                    <h3>Roue 2</h3>
+                    <label for="gift1_2">Cadeau 1 :</label><input type="text" id="gift1_2" value="Cadeau 1"><br>
+                    <label for="gift2_2">Cadeau 2 :</label><input type="text" id="gift2_2" value="Cadeau 2"><br>
+                    <label for="gift3_2">Cadeau 3 :</label><input type="text" id="gift3_2" value="Cadeau 3"><br>
+                    <label for="gift4_2">Cadeau 4 :</label><input type="text" id="gift4_2" value="Cadeau 4"><br>
+                    <label for="gift5_2">Cadeau 5 :</label><input type="text" id="gift5_2" value="Cadeau 5"><br>
+                    <label for="gift6_2">Cadeau 6 :</label><input type="text" id="gift6_2" value="Cadeau 6"><br>
+                </div>
+            </div>
+            <div class="popup-section">
+                <div class="popup-left">
+                    <h3>Roue 3</h3>
+                    <label for="gift1_3">Cadeau 1 :</label><input type="text" id="gift1_3" value="Cadeau 1"><br>
+                    <label for="gift2_3">Cadeau 2 :</label><input type="text" id="gift2_3" value="Cadeau 2"><br>
+                    <label for="gift3_3">Cadeau 3 :</label><input type="text" id="gift3_3" value="Cadeau 3"><br>
+                    <label for="gift4_3">Cadeau 4 :</label><input type="text" id="gift4_3" value="Cadeau 4"><br>
+                    <label for="gift5_3">Cadeau 5 :</label><input type="text" id="gift5_3" value="Cadeau 5"><br>
+                    <label for="gift6_3">Cadeau 6 :</label><input type="text" id="gift6_3" value="Cadeau 6"><br>
+                </div>
+            </div>
+            <button type="button" id="saveButton">Sauvegarder</button>
         </div>
     </div>
 
     <script>
         let lastMouseMoveTime = Date.now();
 
-        // Vérifier l'inactivité de la souris
+        // Gestion de l'inactivité pour afficher la vidéo
         function checkMouseInactive() {
             const currentTime = Date.now();
             if (currentTime - lastMouseMoveTime > 60000) {
                 document.getElementById("videoContainer").style.display = "block"; // Affiche la vidéo
-                document.getElementById("wheelContainer").style.display = "none"; // Masque les roues
+                document.querySelector(".container").style.display = "none"; // Masque les roues
             }
         }
 
-        // Relancer la page roues lors du mouvement de souris
+        // Relancer les roues lors du mouvement de souris
         document.body.addEventListener("mousemove", () => {
             lastMouseMoveTime = Date.now();
             document.getElementById("videoContainer").style.display = "none"; // Masque la vidéo
-            document.getElementById("wheelContainer").style.display = "flex"; // Affiche les roues
+            document.querySelector(".container").style.display = "block"; // Affiche les roues
         });
 
         setInterval(checkMouseInactive, 100);
 
         // Gestion de la pop-up
         document.getElementById("customizeButton").addEventListener("click", () => {
-            document.getElementById("popup").style.display = "flex";
+            document.getElementById("popup").classList.remove("hidden");
         });
 
         document.getElementById("saveButton").addEventListener("click", () => {
-            document.getElementById("popup").style.display = "none";
+            document.getElementById("popup").classList.add("hidden");
         });
     </script>
 </body>
