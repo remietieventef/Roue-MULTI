@@ -38,4 +38,86 @@ function drawWheel(ctx, gifts, startAngle) {
         ctx.fill();
 
         ctx.save();
-        ctx.translate(250, 
+        ctx.translate(250, 250);
+        ctx.rotate(angle + arc / 2);
+        ctx.fillStyle = "#000";
+        ctx.font = "16px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(gift, 150, 10);
+        ctx.restore();
+    });
+
+    ctx.beginPath();
+    ctx.arc(250, 250, 50, 0, 2 * Math.PI);
+    ctx.fillStyle = "#fff";
+    ctx.fill();
+    ctx.stroke();
+}
+
+function rotateWheel(ctx, startAngle, gifts, resultDiv) {
+    spinAngleStart += Math.random() * 10 + 10;
+    spinTime = 0;
+    spinTimeTotal = Math.random() * 3000 + 4000;
+    function rotate() {
+        spinAngleStart = spinAngleStart * Math.PI / 180;
+        startAngle += spinAngleStart;
+        drawWheel(ctx, gifts, startAngle);
+        spinTime += 30;
+
+        if (spinTime >= spinTimeTotal) {
+            clearTimeout(spinTimeout);
+            const degrees = (startAngle * 180) / Math.PI + 90;
+            const arcd = (arc * 180) / Math.PI;
+            const index = Math.floor((360 - (degrees % 360)) / arcd) % gifts.length;
+
+            resultDiv.textContent = `Résultat: ${gifts[index]}`;
+            return;
+        }
+
+        spinTimeout = setTimeout(rotate, 30);
+    }
+    rotate();
+}
+
+spinButton1.addEventListener("click", () => rotateWheel(ctx1, startAngle1, gifts1, result1));
+spinButton2.addEventListener("click", () => rotateWheel(ctx2, startAngle2, gifts2, result2));
+spinButton3.addEventListener("click", () => rotateWheel(ctx3, startAngle3, gifts3, result3));
+
+document.getElementById("customizeButton").addEventListener("click", () => {
+    document.getElementById("popup").classList.remove("hidden");
+});
+
+document.getElementById("saveButton").addEventListener("click", () => {
+    gifts1 = [
+        document.getElementById("gift1_1").value, 
+        document.getElementById("gift2_1").value,
+        document.getElementById("gift3_1").value,
+        document.getElementById("gift4_1").value,
+        document.getElementById("gift5_1").value,
+        document.getElementById("gift6_1").value
+    ];
+    gifts2 = [
+        document.getElementById("gift1_2").value,
+        document.getElementById("gift2_2").value,
+        document.getElementById("gift3_2").value,
+        document.getElementById("gift4_2").value,
+        document.getElementById("gift5_2").value,
+        document.getElementById("gift6_2").value
+    ];
+    gifts3 = [
+        document.getElementById("gift1_3").value,
+        document.getElementById("gift2_3").value,
+        document.getElementById("gift3_3").value,
+        document.getElementById("gift4_3").value,
+        document.getElementById("gift5_3").value,
+        document.getElementById("gift6_3").value
+    ];
+    document.getElementById("popup").classList.add("hidden");
+    drawWheel(ctx1, gifts1, startAngle1);
+    drawWheel(ctx2, gifts2, startAngle2);
+    drawWheel(ctx3, gifts3, startAngle3);
+});
+
+drawWheel(ctx1, gifts1, startAngle1);
+drawWheel(ctx2, gifts2, startAngle2);
+drawWheel(ctx3, gifts3, startAngle3);
