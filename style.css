@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-image: url('Roue Noel.jpg'); /* Assurez-vous d'avoir l'image de fond correcte */
+    background-image: url('Roue Noel.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
