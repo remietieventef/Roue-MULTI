@@ -10,6 +10,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
+
 .container {
     text-align: center;
     position: relative;
