@@ -49,7 +49,7 @@
             cursor: pointer;
             border: none;
             border-radius: 5px;
-            background-color: #4CAF50; /* Couleur douce pour le bouton */
+            background-color: #4CAF50;
             color: white;
         }
 
@@ -59,9 +59,9 @@
             font-size: 18px;
             font-weight: bold;
             padding: 10px;
-            border: 2px solid #4CAF50; /* Cadre vert */
-            border-radius: 10px; /* Coins arrondis */
-            background-color: #e8f5e9; /* Fond vert clair */
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            background-color: #e8f5e9;
             width: 200px;
             margin-left: auto;
             margin-right: auto;
@@ -126,6 +126,28 @@
             height: 100%;
             border: none;
         }
+
+        /* Sécuriser la pop-up avec un champ de mot de passe */
+        .password-container {
+            margin: 20px 0;
+        }
+
+        #passwordInput {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin-bottom: 20px;
+        }
+
+        #accessButton {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -161,8 +183,19 @@
         </div>
     </div>
 
-    <!-- Popup de personnalisation -->
+    <!-- Popup de personnalisation protégée par un mot de passe -->
     <div id="popup" class="popup hidden">
+        <div class="popup-content">
+            <h2>Entrez le mot de passe pour accéder à la personnalisation</h2>
+            <div class="password-container">
+                <input type="password" id="passwordInput" placeholder="Mot de passe">
+                <button id="accessButton">Accéder</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup de personnalisation -->
+    <div id="popupContent" class="popup hidden">
         <div class="popup-content">
             <h2>Personnalisez les cadeaux</h2>
             <div class="popup-section">
@@ -228,6 +261,17 @@
             document.getElementById("popup").style.display = "flex";
         });
 
+        // Vérification du mot de passe
+        document.getElementById("accessButton").addEventListener("click", () => {
+            const password = document.getElementById("passwordInput").value;
+            if (password === "weareeffrance") {
+                document.getElementById("popup").style.display = "none";
+                document.getElementById("popupContent").style.display = "flex";
+            } else {
+                alert("Mot de passe incorrect !");
+            }
+        });
+
         document.getElementById("saveButton").addEventListener("click", () => {
             wheels[0].gifts = [
                 document.getElementById("gift1_1").value,
@@ -254,8 +298,8 @@
                 document.getElementById("gift6_3").value
             ];
 
-            wheels.forEach(wheel => drawWheel(wheel.canvasId, ["#9e9e9e", "#607d8b"], wheel.gifts)); // Changement des couleurs des segments
-            document.getElementById("popup").style.display = "none";
+            wheels.forEach(wheel => drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts)); // Couleurs plus neutres
+            document.getElementById("popupContent").style.display = "none";
         });
 
         function drawWheel(canvasId, colors, gifts) {
@@ -302,7 +346,7 @@
 
             const interval = setInterval(() => {
                 angle += 20 * Math.PI / 180;
-                drawWheel(wheel.canvasId, ["#9e9e9e", "#607d8b"], gifts);
+                drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], gifts);
                 ctx.translate(150, 150);
                 ctx.rotate(angle);
                 ctx.translate(-150, -150);
@@ -316,7 +360,7 @@
         }
 
         wheels.forEach(wheel => {
-            drawWheel(wheel.canvasId, ["#9e9e9e", "#607d8b"], wheel.gifts);
+            drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
             document.getElementById(wheel.spinButtonId).addEventListener("click", () => spinWheel(wheel));
         });
     </script>
