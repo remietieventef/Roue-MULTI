@@ -44,6 +44,12 @@ body {
     margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
+    padding: 10px;
+    border: 2px solid #000;  /* Bordure noire autour du texte */
+    border-radius: 5px;      /* Coins arrondis pour un effet plus esthétique */
+    background-color: #ffeb3b; /* Fond jaune clair pour le texte */
+    text-align: center;      /* Centrer le texte */
+    width: 200px;            /* Largeur fixe pour uniformiser les résultats */
 }
 
 .top-right {
@@ -110,5 +116,4 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
-
 
