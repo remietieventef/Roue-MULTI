@@ -6,7 +6,8 @@ const popup = document.getElementById("popup");
 const saveButton = document.getElementById("saveButton");
 const resultDiv = document.getElementById("result");
 
-let gifts = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5"];
+// Ajout de 6 sections
+let gifts = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"];
 
 let startAngle = 0;
 const arc = (2 * Math.PI) / gifts.length;
@@ -84,6 +85,7 @@ saveButton.addEventListener("click", () => {
         document.getElementById("gift3").value || "Cadeau 3",
         document.getElementById("gift4").value || "Cadeau 4",
         document.getElementById("gift5").value || "Cadeau 5",
+        document.getElementById("gift6").value || "Cadeau 6",
     ];
     popup.classList.add("hidden");
     drawWheel();
