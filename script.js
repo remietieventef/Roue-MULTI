@@ -71,12 +71,12 @@ function stopRotateWheel() {
     resultDiv.textContent = `Résultat: ${gifts[index]}`;
 }
 
-// Bouton pour personnaliser
+// Bouton pour ouvrir la personnalisation
 customizeButton.addEventListener("click", () => {
     popup.classList.remove("hidden");
 });
 
-// Bouton pour sauvegarder
+// Bouton pour sauvegarder et fermer la popup
 saveButton.addEventListener("click", () => {
     gifts = [
         document.getElementById("gift1").value || "Cadeau 1",
@@ -98,4 +98,3 @@ spinButton.addEventListener("click", () => {
 });
 
 drawWheel();
-
