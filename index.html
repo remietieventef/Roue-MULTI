@@ -53,7 +53,6 @@
             color: white;
         }
 
-        /* Nouveau design pour les cadres de résultats */
         #result1, #result2, #result3 {
             margin-top: 10px;
             font-size: 18px;
@@ -233,13 +232,32 @@
         </div>
     </div>
 
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
+        // Initialisation d'EmailJS avec votre clé publique
+        emailjs.init("hoz22gRCGAh20qkjt");
+
         let lastMouseMoveTime = Date.now();
         const wheels = [
             { canvasId: "wheelCanvas1", spinButtonId: "spinButton1", resultId: "result1", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] },
             { canvasId: "wheelCanvas2", spinButtonId: "spinButton2", resultId: "result2", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] },
             { canvasId: "wheelCanvas3", spinButtonId: "spinButton3", resultId: "result3", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] }
         ];
+
+        function sendEmail(score) {
+            const emailData = {
+                to_email: "default@example.com",  // L'adresse e-mail par défaut à laquelle envoyer l'e-mail
+                subject: "Score de la roue de Noël",
+                message: `Félicitations ! Vous avez gagné : ${score}`,
+            };
+
+            emailjs.send("service_dh5ll1e", "template_83aobr9", emailData)
+                .then(function(response) {
+                    console.log('Succès !', response);
+                }, function(error) {
+                    console.log('Échec de l\'envoi :', error);
+                });
+        }
 
         function checkMouseInactive() {
             const currentTime = Date.now();
@@ -356,6 +374,8 @@
                 clearInterval(interval);
                 const resultIndex = Math.floor(Math.random() * gifts.length);
                 document.getElementById(wheel.resultId).textContent = `Résultat: ${gifts[resultIndex]}`;
+                // Envoi de l'e-mail avec le score
+                sendEmail(gifts[resultIndex]);
             }, spinTime);
         }
 
