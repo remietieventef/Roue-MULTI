@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roue de Noël Personnalisée</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             margin: 0;
@@ -12,12 +11,17 @@
             font-family: Arial, sans-serif;
             background: url('Roue Noel.jpg') no-repeat center center fixed;
             background-size: cover;
+            overflow: hidden;
         }
 
         .container {
             text-align: center;
             position: relative;
-            z-index: 2; /* S'assurer que l'interface des roues est visible par défaut */
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .wheels-container {
@@ -80,8 +84,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 3; /* Afficher la pop-up au-dessus des autres plans */
-            display: flex;
+            z-index: 3;
             justify-content: center;
             align-items: center;
         }
@@ -111,7 +114,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1; /* Par défaut, la vidéo est en arrière-plan */
+            z-index: 1;
             background: black;
         }
 
@@ -156,7 +159,7 @@
     </div>
 
     <!-- Popup de personnalisation -->
-    <div id="popup" class="popup">
+    <div id="popup" class="popup hidden">
         <div class="popup-content">
             <h2>Personnalisez les cadeaux</h2>
             <div class="popup-section">
@@ -199,7 +202,7 @@
 
         function checkMouseInactive() {
             const currentTime = Date.now();
-            if (currentTime - lastMouseMoveTime > 30000) { // Après 30 secondes d'inactivité
+            if (currentTime - lastMouseMoveTime > 30000) {
                 document.getElementById("videoContainer").style.display = "block";
                 document.querySelector(".container").style.display = "none";
             }
