@@ -17,15 +17,15 @@
             position: relative;
         }
 
-        /* Vidéo en arrière-plan */
+        /* Iframe YouTube en arrière-plan */
         #backgroundVideo {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            z-index: -1; /* Vidéo en arrière-plan */
+            border: none;
+            z-index: -1; /* Placer la vidéo en arrière-plan */
         }
 
         .container {
@@ -137,11 +137,12 @@
     </style>
 </head>
 <body>
-    <!-- Vidéo locale en arrière-plan -->
-    <video id="backgroundVideo" autoplay loop muted>
-        <source src="video.mp4" type="video/mp4">
-        Votre navigateur ne prend pas en charge la balise vidéo.
-    </video>
+    <!-- Iframe YouTube en arrière-plan -->
+    <iframe id="backgroundVideo" src="https://www.youtube.com/embed/videoseries?si=ZEIQe56g8k_ox7Gm&list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen></iframe>
 
     <div class="container">
         <div class="wheels-container">
@@ -270,23 +271,6 @@
             updateGiftList(2);
             updateGiftList(3);
             document.getElementById("popup").classList.add("hidden");
-        });
-
-        // Code pour faire tourner la roue et afficher un cadeau aléatoire
-        function spinWheel(wheelIndex) {
-            const gifts = eval(`gifts${wheelIndex}`);
-            const randomGift = gifts[Math.floor(Math.random() * gifts.length)];
-            displayResult(wheelIndex, randomGift);
-        }
-
-        document.getElementById("spinButton1").addEventListener("click", function() {
-            spinWheel(1);
-        });
-        document.getElementById("spinButton2").addEventListener("click", function() {
-            spinWheel(2);
-        });
-        document.getElementById("spinButton3").addEventListener("click", function() {
-            spinWheel(3);
         });
     </script>
 </body>
