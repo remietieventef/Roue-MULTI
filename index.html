@@ -5,59 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roue de Noël Personnalisée</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Ajout pour le plan vidéo */
-        #videoContainer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none; /* Masqué par défaut */
-            z-index: 1;
-            background-color: black; /* Fond noir pour la vidéo */
-        }
-
-        #backgroundVideo {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Plan pour les roues (déjà existant, avec quelques ajustements) */
-        .container {
-            text-align: center;
-            position: relative;
-            z-index: 2; /* S'assurer que le plan roues est au-dessus par défaut */
-        }
-
-        .popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            z-index: 3; /* Plan pop-up */
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
 </head>
 <body>
-    <!-- Conteneur pour la vidéo -->
-    <div id="videoContainer">
-        <iframe id="backgroundVideo" 
-            src="https://www.youtube.com/embed/videoseries?si=ZEIQe56g8k_ox7Gm&list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT&autoplay=1&mute=1" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" 
-            allowfullscreen>
-        </iframe>
-    </div>
-
-    <!-- Conteneur pour les roues -->
     <div class="container">
         <button id="customizeButton" class="top-right">Personnaliser</button>
         
@@ -81,7 +30,7 @@
     </div>
 
     <!-- Popup de personnalisation -->
-    <div id="popup" class="popup">
+    <div id="popup" class="popup hidden">
         <div class="popup-content">
             <h2>Personnalisez les cadeaux</h2>
             <div class="popup-section">
@@ -119,35 +68,10 @@
         </div>
     </div>
 
-    <script>
-        let lastMouseMoveTime = Date.now();
-
-        // Gestion de l'inactivité pour afficher la vidéo
-        function checkMouseInactive() {
-            const currentTime = Date.now();
-            if (currentTime - lastMouseMoveTime > 60000) {
-                document.getElementById("videoContainer").style.display = "block"; // Affiche la vidéo
-                document.querySelector(".container").style.display = "none"; // Masque les roues
-            }
-        }
-
-        // Relancer les roues lors du mouvement de souris
-        document.body.addEventListener("mousemove", () => {
-            lastMouseMoveTime = Date.now();
-            document.getElementById("videoContainer").style.display = "none"; // Masque la vidéo
-            document.querySelector(".container").style.display = "block"; // Affiche les roues
-        });
-
-        setInterval(checkMouseInactive, 100);
-
-        // Gestion de la pop-up
-        document.getElementById("customizeButton").addEventListener("click", () => {
-            document.getElementById("popup").classList.remove("hidden");
-        });
-
-        document.getElementById("saveButton").addEventListener("click", () => {
-            document.getElementById("popup").classList.add("hidden");
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
