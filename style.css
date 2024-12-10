@@ -67,6 +67,8 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    width: 300px;
 }
 
 .popup-content h3 {
