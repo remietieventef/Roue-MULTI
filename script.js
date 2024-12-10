@@ -24,6 +24,7 @@ let spinTimeout = null;
 let spinAngleStart = 0;
 let spinTime = 0;
 let spinTimeTotal = 0;
+let easing = 0.05; // Plus petit pour une animation plus douce
 
 function drawWheel(ctx, gifts, startAngle) {
     ctx.clearRect(0, 0, 500, 500);
@@ -55,18 +56,20 @@ function drawWheel(ctx, gifts, startAngle) {
 }
 
 function rotateWheel(ctx, startAngle, gifts, resultDiv) {
-    spinAngleStart += Math.random() * 10 + 10;
+    // Augmenter la vitesse initiale pour un effet plus rapide
+    spinAngleStart = Math.random() * 10 + 10;
     spinTime = 0;
     spinTimeTotal = Math.random() * 3000 + 4000;
+    let currentAngle = startAngle;
+
     function rotate() {
-        spinAngleStart = spinAngleStart * Math.PI / 180;
-        startAngle += spinAngleStart;
-        drawWheel(ctx, gifts, startAngle);
+        spinAngleStart *= 1 - easing; // Appliquer un effet de ralentissement
+        currentAngle += spinAngleStart;
+        drawWheel(ctx, gifts, currentAngle);
         spinTime += 30;
 
         if (spinTime >= spinTimeTotal) {
-            clearTimeout(spinTimeout);
-            const degrees = (startAngle * 180) / Math.PI + 90;
+            const degrees = (currentAngle * 180) / Math.PI + 90;
             const arcd = (arc * 180) / Math.PI;
             const index = Math.floor((360 - (degrees % 360)) / arcd) % gifts.length;
 
@@ -74,8 +77,9 @@ function rotateWheel(ctx, startAngle, gifts, resultDiv) {
             return;
         }
 
-        spinTimeout = setTimeout(rotate, 30);
+        requestAnimationFrame(rotate); // Utilisation de requestAnimationFrame pour la fluidité
     }
+
     rotate();
 }
 
