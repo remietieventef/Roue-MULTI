@@ -5,11 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roue de Noël Personnalisée</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('Roue Noel.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 2; /* S'assurer que l'interface des roues est visible par défaut */
+        }
+
+        .wheels-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .wheel {
+            margin: 0 20px;
+            text-align: center;
+        }
+
+        canvas {
+            border: 2px solid #000;
+            border-radius: 10px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff6666;
+            color: white;
+        }
+
+        #result1, #result2, #result3 {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            background-color: #ffeb3b;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .top-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 3; /* Afficher la pop-up au-dessus des autres plans */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .popup-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .popup-left, .popup-right {
+            width: 45%;
+        }
+
+        /* Plan vidéo */
+        #videoContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Par défaut, la vidéo est en arrière-plan */
+            background: black;
+        }
+
+        #backgroundVideo {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
+    <!-- Conteneur vidéo -->
+    <div id="videoContainer">
+        <iframe id="backgroundVideo" 
+            src="https://www.youtube.com/embed/videoseries?list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT&autoplay=1&mute=1" 
+            frameborder="0" 
+            allow="autoplay; encrypted-media; fullscreen; accelerometer; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- Conteneur principal -->
     <div class="container">
         <button id="customizeButton" class="top-right">Personnaliser</button>
-        
         <div class="wheels-container">
             <div class="wheel">
                 <canvas id="wheelCanvas1" width="500" height="500"></canvas>
@@ -30,7 +156,7 @@
     </div>
 
     <!-- Popup de personnalisation -->
-    <div id="popup" class="popup hidden">
+    <div id="popup" class="popup">
         <div class="popup-content">
             <h2>Personnalisez les cadeaux</h2>
             <div class="popup-section">
@@ -64,14 +190,36 @@
                     <label for="gift6_3">Cadeau 6 :</label><input type="text" id="gift6_3" value="Cadeau 6"><br>
                 </div>
             </div>
-            <button type="button" id="saveButton">Sauvegarder</button>
+            <button id="saveButton">Sauvegarder</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        let lastMouseMoveTime = Date.now();
+
+        function checkMouseInactive() {
+            const currentTime = Date.now();
+            if (currentTime - lastMouseMoveTime > 30000) { // Après 30 secondes d'inactivité
+                document.getElementById("videoContainer").style.display = "block";
+                document.querySelector(".container").style.display = "none";
+            }
+        }
+
+        document.body.addEventListener("mousemove", () => {
+            lastMouseMoveTime = Date.now();
+            document.getElementById("videoContainer").style.display = "none";
+            document.querySelector(".container").style.display = "block";
+        });
+
+        setInterval(checkMouseInactive, 100);
+
+        document.getElementById("customizeButton").addEventListener("click", () => {
+            document.getElementById("popup").style.display = "flex";
+        });
+
+        document.getElementById("saveButton").addEventListener("click", () => {
+            document.getElementById("popup").style.display = "none";
+        });
+    </script>
 </body>
 </html>
-
-
-
-
