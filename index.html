@@ -1,77 +1,291 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roue de Noël Personnalisée</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Roue Cadeau</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: url('Roue Noel.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        #backgroundVideo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;        /* Vidéo en arrière-plan */
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;  /* Assurez-vous que l'interface soit visible au-dessus de la vidéo */
+        }
+
+        .wheels-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        .wheel {
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        #spinButton1, #spinButton2, #spinButton3 {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff6666;
+            color: white;
+            border-radius: 5px;
+        }
+
+        #result1, #result2, #result3 {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            background-color: #ffeb3b;
+            text-align: center;
+            width: 200px;
+        }
+
+        .top-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .popup-section {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .popup-left, .popup-right {
+            width: 45%;
+        }
+
+        form input {
+            margin: 5px 0;
+            padding: 5px;
+            width: calc(100% - 20px);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+    <!-- Vidéo YouTube en arrière-plan -->
+    <iframe id="backgroundVideo" width="100%" height="100%" src="https://www.youtube.com/embed?playlist=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT&autoplay=1&loop=1&playlist=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
     <div class="container">
-        <button id="customizeButton" class="top-right">Personnaliser</button>
-        
         <div class="wheels-container">
+            <!-- Roue 1 -->
             <div class="wheel">
-                <canvas id="wheelCanvas1" width="500" height="500"></canvas>
-                <button id="spinButton1">Tourner</button>
-                <div id="result1">Résultat: ?</div>
+                <canvas id="wheel1" width="300" height="300"></canvas>
+                <button id="spinButton1">Tourner la roue</button>
+                <div id="result1"></div>
             </div>
+
+            <!-- Roue 2 -->
             <div class="wheel">
-                <canvas id="wheelCanvas2" width="500" height="500"></canvas>
-                <button id="spinButton2">Tourner</button>
-                <div id="result2">Résultat: ?</div>
+                <canvas id="wheel2" width="300" height="300"></canvas>
+                <button id="spinButton2">Tourner la roue</button>
+                <div id="result2"></div>
             </div>
+
+            <!-- Roue 3 -->
             <div class="wheel">
-                <canvas id="wheelCanvas3" width="500" height="500"></canvas>
-                <button id="spinButton3">Tourner</button>
-                <div id="result3">Résultat: ?</div>
+                <canvas id="wheel3" width="300" height="300"></canvas>
+                <button id="spinButton3">Tourner la roue</button>
+                <div id="result3"></div>
             </div>
         </div>
+
+        <!-- Bouton de personnalisation -->
+        <button class="top-right" id="customizeButton">Personnaliser</button>
     </div>
 
     <!-- Popup de personnalisation -->
     <div id="popup" class="popup hidden">
         <div class="popup-content">
-            <h2>Personnalisez les cadeaux</h2>
+            <h2>Personnalisation des roues</h2>
             <div class="popup-section">
                 <div class="popup-left">
                     <h3>Roue 1</h3>
-                    <label for="gift1_1">Cadeau 1 :</label><input type="text" id="gift1_1" value="Cadeau 1"><br>
-                    <label for="gift2_1">Cadeau 2 :</label><input type="text" id="gift2_1" value="Cadeau 2"><br>
-                    <label for="gift3_1">Cadeau 3 :</label><input type="text" id="gift3_1" value="Cadeau 3"><br>
-                    <label for="gift4_1">Cadeau 4 :</label><input type="text" id="gift4_1" value="Cadeau 4"><br>
-                    <label for="gift5_1">Cadeau 5 :</label><input type="text" id="gift5_1" value="Cadeau 5"><br>
-                    <label for="gift6_1">Cadeau 6 :</label><input type="text" id="gift6_1" value="Cadeau 6"><br>
+                    <form>
+                        <input type="text" id="gift1_1" placeholder="Cadeau 1">
+                        <input type="text" id="gift1_2" placeholder="Cadeau 2">
+                        <input type="text" id="gift1_3" placeholder="Cadeau 3">
+                        <input type="text" id="gift1_4" placeholder="Cadeau 4">
+                        <input type="text" id="gift1_5" placeholder="Cadeau 5">
+                        <input type="text" id="gift1_6" placeholder="Cadeau 6">
+                    </form>
                 </div>
+
                 <div class="popup-right">
                     <h3>Roue 2</h3>
-                    <label for="gift1_2">Cadeau 1 :</label><input type="text" id="gift1_2" value="Cadeau 1"><br>
-                    <label for="gift2_2">Cadeau 2 :</label><input type="text" id="gift2_2" value="Cadeau 2"><br>
-                    <label for="gift3_2">Cadeau 3 :</label><input type="text" id="gift3_2" value="Cadeau 3"><br>
-                    <label for="gift4_2">Cadeau 4 :</label><input type="text" id="gift4_2" value="Cadeau 4"><br>
-                    <label for="gift5_2">Cadeau 5 :</label><input type="text" id="gift5_2" value="Cadeau 5"><br>
-                    <label for="gift6_2">Cadeau 6 :</label><input type="text" id="gift6_2" value="Cadeau 6"><br>
+                    <form>
+                        <input type="text" id="gift2_1" placeholder="Cadeau 1">
+                        <input type="text" id="gift2_2" placeholder="Cadeau 2">
+                        <input type="text" id="gift2_3" placeholder="Cadeau 3">
+                        <input type="text" id="gift2_4" placeholder="Cadeau 4">
+                        <input type="text" id="gift2_5" placeholder="Cadeau 5">
+                        <input type="text" id="gift2_6" placeholder="Cadeau 6">
+                    </form>
                 </div>
             </div>
+
             <div class="popup-section">
                 <div class="popup-left">
                     <h3>Roue 3</h3>
-                    <label for="gift1_3">Cadeau 1 :</label><input type="text" id="gift1_3" value="Cadeau 1"><br>
-                    <label for="gift2_3">Cadeau 2 :</label><input type="text" id="gift2_3" value="Cadeau 2"><br>
-                    <label for="gift3_3">Cadeau 3 :</label><input type="text" id="gift3_3" value="Cadeau 3"><br>
-                    <label for="gift4_3">Cadeau 4 :</label><input type="text" id="gift4_3" value="Cadeau 4"><br>
-                    <label for="gift5_3">Cadeau 5 :</label><input type="text" id="gift5_3" value="Cadeau 5"><br>
-                    <label for="gift6_3">Cadeau 6 :</label><input type="text" id="gift6_3" value="Cadeau 6"><br>
+                    <form>
+                        <input type="text" id="gift3_1" placeholder="Cadeau 1">
+                        <input type="text" id="gift3_2" placeholder="Cadeau 2">
+                        <input type="text" id="gift3_3" placeholder="Cadeau 3">
+                        <input type="text" id="gift3_4" placeholder="Cadeau 4">
+                        <input type="text" id="gift3_5" placeholder="Cadeau 5">
+                        <input type="text" id="gift3_6" placeholder="Cadeau 6">
+                    </form>
                 </div>
             </div>
-            <button type="button" id="saveButton">Sauvegarder</button>
+
+            <button id="saveButton">Sauvegarder</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Détecter les mouvements de la souris
+        let lastMouseMoveTime = Date.now();
+
+        document.body.addEventListener("mousemove", function() {
+            lastMouseMoveTime = Date.now();
+            document.getElementById("backgroundVideo").style.zIndex = -1;  // Placer la vidéo en arrière-plan
+            document.querySelector(".container").style.zIndex = 1;        // Rendre la roue et l'interface visibles
+        });
+
+        function checkMouseInactive() {
+            const currentTime = Date.now();
+            if (currentTime - lastMouseMoveTime > 60000) {  // Si la souris n'a pas bougé depuis 60 secondes
+                document.getElementById("backgroundVideo").style.zIndex = 1;  // Placer la vidéo au premier plan
+                document.querySelector(".container").style.zIndex = -1;      // Masquer la roue
+            }
+        }
+
+        // Vérifier toutes les 100ms si la souris est inactive
+        setInterval(checkMouseInactive, 100);
+
+        // Code pour personnaliser les roues et afficher les résultats
+        const gifts1 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"];
+        const gifts2 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"];
+        const gifts3 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"];
+
+        // Fonction pour afficher les cadeaux personnalisés
+        function updateGiftList(wheelIndex) {
+            for (let i = 1; i <= 6; i++) {
+                let gift = document.getElementById(`gift${wheelIndex}_${i}`).value;
+                if (gift) {
+                    eval(`gifts${wheelIndex}[i-1] = gift`);
+                }
+            }
+        }
+
+        // Fonction pour afficher les résultats de la roue
+        function displayResult(wheelIndex, gift) {
+            document.getElementById(`result${wheelIndex}`).innerHTML = `Résultat: ${gift}`;
+        }
+
+        // Fonction pour personnaliser
+        document.getElementById("customizeButton").addEventListener("click", function() {
+            document.getElementById("popup").classList.remove("hidden");
+        });
+
+        document.getElementById("saveButton").addEventListener("click", function() {
+            updateGiftList(1);
+            updateGiftList(2);
+            updateGiftList(3);
+            document.getElementById("popup").classList.add("hidden");
+        });
+
+        // Code pour faire tourner la roue et afficher un cadeau aléatoire
+        function spinWheel(wheelIndex) {
+            const gifts = eval(`gifts${wheelIndex}`);
+            const randomGift = gifts[Math.floor(Math.random() * gifts.length)];
+            displayResult(wheelIndex, randomGift);
+        }
+
+        document.getElementById("spinButton1").addEventListener("click", function() {
+            spinWheel(1);
+        });
+        document.getElementById("spinButton2").addEventListener("click", function() {
+            spinWheel(2);
+        });
+        document.getElementById("spinButton3").addEventListener("click", function() {
+            spinWheel(3);
+        });
+    </script>
 </body>
 </html>
-
-
-
-
