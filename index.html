@@ -8,36 +8,48 @@
         body {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh;
             font-family: Arial, sans-serif;
-            position: relative;
+            overflow: hidden;
         }
 
-        /* Iframe YouTube en arrière-plan */
-        #backgroundVideo {
+        /* Plan pour la vidéo */
+        #videoContainer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: none;
-            z-index: -1; /* Placer la vidéo en arrière-plan */
+            display: none; /* Masqué par défaut */
+            z-index: 1;
+            background-color: black; /* Fond noir pour la vidéo */
         }
 
-        .container {
-            text-align: center;
-            position: relative;
-            z-index: 1;  /* Assurez-vous que l'interface soit visible au-dessus de la vidéo */
+        #backgroundVideo {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Plan pour les roues */
+        #wheelContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background: url('Roue Noel.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
         .wheels-container {
             display: flex;
             justify-content: space-between;
-            width: 100%;
+            width: 90%;
             margin-top: 50px;
         }
 
@@ -82,6 +94,7 @@
             cursor: pointer;
         }
 
+        /* Plan pour la pop-up */
         .popup {
             position: fixed;
             top: 0;
@@ -89,7 +102,8 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            display: flex;
+            display: none;
+            z-index: 3;
             justify-content: center;
             align-items: center;
         }
@@ -101,10 +115,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        .hidden {
-            display: none;
         }
 
         .popup-section {
@@ -137,140 +147,76 @@
     </style>
 </head>
 <body>
-    <!-- Iframe YouTube en arrière-plan -->
-    <iframe id="backgroundVideo" src="https://www.youtube.com/embed/videoseries?si=ZEIQe56g8k_ox7Gm&list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen></iframe>
+    <!-- Plan vidéo -->
+    <div id="videoContainer">
+        <iframe id="backgroundVideo" 
+            src="https://www.youtube.com/embed/videoseries?si=ZEIQe56g8k_ox7Gm&list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT&autoplay=1&mute=1" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+        </iframe>
+    </div>
 
-    <div class="container">
+    <!-- Plan roues -->
+    <div id="wheelContainer">
         <div class="wheels-container">
-            <!-- Roue 1 -->
             <div class="wheel">
                 <canvas id="wheel1" width="300" height="300"></canvas>
                 <button id="spinButton1">Tourner la roue</button>
-                <div id="result1"></div>
+                <div id="result1">Résultat: -</div>
             </div>
-
-            <!-- Roue 2 -->
             <div class="wheel">
                 <canvas id="wheel2" width="300" height="300"></canvas>
                 <button id="spinButton2">Tourner la roue</button>
-                <div id="result2"></div>
+                <div id="result2">Résultat: -</div>
             </div>
-
-            <!-- Roue 3 -->
             <div class="wheel">
                 <canvas id="wheel3" width="300" height="300"></canvas>
                 <button id="spinButton3">Tourner la roue</button>
-                <div id="result3"></div>
+                <div id="result3">Résultat: -</div>
             </div>
         </div>
-
-        <!-- Bouton de personnalisation -->
         <button class="top-right" id="customizeButton">Personnaliser</button>
     </div>
 
-    <!-- Popup de personnalisation -->
-    <div id="popup" class="popup hidden">
+    <!-- Plan pop-up -->
+    <div id="popup" class="popup">
         <div class="popup-content">
             <h2>Personnalisation des roues</h2>
-            <div class="popup-section">
-                <div class="popup-left">
-                    <h3>Roue 1</h3>
-                    <form>
-                        <input type="text" id="gift1_1" placeholder="Cadeau 1">
-                        <input type="text" id="gift1_2" placeholder="Cadeau 2">
-                        <input type="text" id="gift1_3" placeholder="Cadeau 3">
-                        <input type="text" id="gift1_4" placeholder="Cadeau 4">
-                        <input type="text" id="gift1_5" placeholder="Cadeau 5">
-                        <input type="text" id="gift1_6" placeholder="Cadeau 6">
-                    </form>
-                </div>
-
-                <div class="popup-right">
-                    <h3>Roue 2</h3>
-                    <form>
-                        <input type="text" id="gift2_1" placeholder="Cadeau 1">
-                        <input type="text" id="gift2_2" placeholder="Cadeau 2">
-                        <input type="text" id="gift2_3" placeholder="Cadeau 3">
-                        <input type="text" id="gift2_4" placeholder="Cadeau 4">
-                        <input type="text" id="gift2_5" placeholder="Cadeau 5">
-                        <input type="text" id="gift2_6" placeholder="Cadeau 6">
-                    </form>
-                </div>
-            </div>
-
-            <div class="popup-section">
-                <div class="popup-left">
-                    <h3>Roue 3</h3>
-                    <form>
-                        <input type="text" id="gift3_1" placeholder="Cadeau 1">
-                        <input type="text" id="gift3_2" placeholder="Cadeau 2">
-                        <input type="text" id="gift3_3" placeholder="Cadeau 3">
-                        <input type="text" id="gift3_4" placeholder="Cadeau 4">
-                        <input type="text" id="gift3_5" placeholder="Cadeau 5">
-                        <input type="text" id="gift3_6" placeholder="Cadeau 6">
-                    </form>
-                </div>
-            </div>
-
+            <!-- Section de personnalisation des roues ici -->
             <button id="saveButton">Sauvegarder</button>
         </div>
     </div>
 
     <script>
-        // Détecter les mouvements de la souris
         let lastMouseMoveTime = Date.now();
 
-        document.body.addEventListener("mousemove", function() {
-            lastMouseMoveTime = Date.now();
-            document.getElementById("backgroundVideo").style.zIndex = -1;  // Placer la vidéo en arrière-plan
-            document.querySelector(".container").style.zIndex = 1;        // Rendre la roue et l'interface visibles
-        });
-
+        // Vérifier l'inactivité de la souris
         function checkMouseInactive() {
             const currentTime = Date.now();
-            if (currentTime - lastMouseMoveTime > 60000) {  // Si la souris n'a pas bougé depuis 60 secondes
-                document.getElementById("backgroundVideo").style.zIndex = 1;  // Placer la vidéo au premier plan
-                document.querySelector(".container").style.zIndex = -1;      // Masquer la roue
+            if (currentTime - lastMouseMoveTime > 60000) {
+                document.getElementById("videoContainer").style.display = "block"; // Affiche la vidéo
+                document.getElementById("wheelContainer").style.display = "none"; // Masque les roues
             }
         }
 
-        // Vérifier toutes les 100ms si la souris est inactive
-        setInterval(checkMouseInactive, 100);
-
-        // Code pour personnaliser les roues et afficher les résultats
-        const gifts1 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"];
-        const gifts2 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"];
-        const gifts3 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"];
-
-        // Fonction pour afficher les cadeaux personnalisés
-        function updateGiftList(wheelIndex) {
-            for (let i = 1; i <= 6; i++) {
-                let gift = document.getElementById(`gift${wheelIndex}_${i}`).value;
-                if (gift) {
-                    eval(`gifts${wheelIndex}[i-1] = gift`);
-                }
-            }
-        }
-
-        // Fonction pour afficher les résultats de la roue
-        function displayResult(wheelIndex, gift) {
-            document.getElementById(`result${wheelIndex}`).innerHTML = `Résultat: ${gift}`;
-        }
-
-        // Fonction pour personnaliser
-        document.getElementById("customizeButton").addEventListener("click", function() {
-            document.getElementById("popup").classList.remove("hidden");
+        // Relancer la page roues lors du mouvement de souris
+        document.body.addEventListener("mousemove", () => {
+            lastMouseMoveTime = Date.now();
+            document.getElementById("videoContainer").style.display = "none"; // Masque la vidéo
+            document.getElementById("wheelContainer").style.display = "flex"; // Affiche les roues
         });
 
-        document.getElementById("saveButton").addEventListener("click", function() {
-            updateGiftList(1);
-            updateGiftList(2);
-            updateGiftList(3);
-            document.getElementById("popup").classList.add("hidden");
+        setInterval(checkMouseInactive, 100);
+
+        // Gestion de la pop-up
+        document.getElementById("customizeButton").addEventListener("click", () => {
+            document.getElementById("popup").style.display = "flex";
+        });
+
+        document.getElementById("saveButton").addEventListener("click", () => {
+            document.getElementById("popup").style.display = "none";
         });
     </script>
 </body>
