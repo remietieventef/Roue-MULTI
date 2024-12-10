@@ -52,15 +52,14 @@
             color: white;
         }
 
-        /* Nouveau design pour les cadres de résultats */
         #result1, #result2, #result3 {
             margin-top: 10px;
             font-size: 18px;
             font-weight: bold;
             padding: 10px;
-            border: 2px solid #4CAF50; /* Cadre vert */
-            border-radius: 10px; /* Coins arrondis */
-            background-color: #f1f8e9; /* Fond vert clair */
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            background-color: #f1f8e9;
             width: 200px;
             margin-left: auto;
             margin-right: auto;
@@ -201,8 +200,12 @@
 
     <script>
         let lastMouseMoveTime = Date.now();
+        const wheels = [
+            { canvasId: "wheelCanvas1", spinButtonId: "spinButton1", resultId: "result1", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] },
+            { canvasId: "wheelCanvas2", spinButtonId: "spinButton2", resultId: "result2", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] },
+            { canvasId: "wheelCanvas3", spinButtonId: "spinButton3", resultId: "result3", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] }
+        ];
 
-        // Vérification d'inactivité
         function checkMouseInactive() {
             const currentTime = Date.now();
             if (currentTime - lastMouseMoveTime > 30000) {
@@ -317,4 +320,3 @@
     </script>
 </body>
 </html>
-
