@@ -29,6 +29,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-bottom: 20px;
         }
 
         .wheel {
@@ -37,7 +38,7 @@
         }
 
         canvas {
-            border: 2px solid #000;
+            border: 2px solid #fff;
             border-radius: 50%;
         }
 
@@ -48,18 +49,19 @@
             cursor: pointer;
             border: none;
             border-radius: 5px;
-            background-color: #ff6666;
+            background-color: #4CAF50; /* Couleur douce pour le bouton */
             color: white;
         }
 
+        /* Nouveau design pour les cadres de résultats */
         #result1, #result2, #result3 {
             margin-top: 10px;
             font-size: 18px;
             font-weight: bold;
             padding: 10px;
-            border: 2px solid #4CAF50;
-            border-radius: 10px;
-            background-color: #f1f8e9;
+            border: 2px solid #4CAF50; /* Cadre vert */
+            border-radius: 10px; /* Coins arrondis */
+            background-color: #e8f5e9; /* Fond vert clair */
             width: 200px;
             margin-left: auto;
             margin-right: auto;
@@ -143,18 +145,18 @@
         <div class="wheels-container">
             <div class="wheel">
                 <canvas id="wheelCanvas1" width="300" height="300"></canvas>
-                <button id="spinButton1">Tourner</button>
                 <div id="result1">Résultat: ?</div>
+                <button id="spinButton1">Tourner</button>
             </div>
             <div class="wheel">
                 <canvas id="wheelCanvas2" width="300" height="300"></canvas>
-                <button id="spinButton2">Tourner</button>
                 <div id="result2">Résultat: ?</div>
+                <button id="spinButton2">Tourner</button>
             </div>
             <div class="wheel">
                 <canvas id="wheelCanvas3" width="300" height="300"></canvas>
-                <button id="spinButton3">Tourner</button>
                 <div id="result3">Résultat: ?</div>
+                <button id="spinButton3">Tourner</button>
             </div>
         </div>
     </div>
@@ -252,7 +254,7 @@
                 document.getElementById("gift6_3").value
             ];
 
-            wheels.forEach(wheel => drawWheel(wheel.canvasId, ["#ff7f7f", "#7fffd4"], wheel.gifts)); // Modif couleur des segments
+            wheels.forEach(wheel => drawWheel(wheel.canvasId, ["#9e9e9e", "#607d8b"], wheel.gifts)); // Changement des couleurs des segments
             document.getElementById("popup").style.display = "none";
         });
 
@@ -300,7 +302,7 @@
 
             const interval = setInterval(() => {
                 angle += 20 * Math.PI / 180;
-                drawWheel(wheel.canvasId, ["#ff7f7f", "#7fffd4"], gifts);
+                drawWheel(wheel.canvasId, ["#9e9e9e", "#607d8b"], gifts);
                 ctx.translate(150, 150);
                 ctx.rotate(angle);
                 ctx.translate(-150, -150);
@@ -314,9 +316,10 @@
         }
 
         wheels.forEach(wheel => {
-            drawWheel(wheel.canvasId, ["#ff7f7f", "#7fffd4"], wheel.gifts);
+            drawWheel(wheel.canvasId, ["#9e9e9e", "#607d8b"], wheel.gifts);
             document.getElementById(wheel.spinButtonId).addEventListener("click", () => spinWheel(wheel));
         });
     </script>
 </body>
 </html>
+
