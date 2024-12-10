@@ -24,7 +24,8 @@ let spinTimeout = null;
 let spinAngleStart = 0;
 let spinTime = 0;
 let spinTimeTotal = 0;
-let easing = 0.05; // Plus petit pour une animation plus douce
+let easing = 0.1; // Plus petit pour une animation plus douce
+let isSpinning = false;
 
 function drawWheel(ctx, gifts, startAngle) {
     ctx.clearRect(0, 0, 500, 500);
@@ -56,31 +57,38 @@ function drawWheel(ctx, gifts, startAngle) {
 }
 
 function rotateWheel(ctx, startAngle, gifts, resultDiv) {
-    // Augmenter la vitesse initiale pour un effet plus rapide
-    spinAngleStart = Math.random() * 10 + 10;
+    if (isSpinning) return; // Empêche de démarrer une nouvelle rotation avant la fin de la précédente
+
+    isSpinning = true; // Démarre la rotation
+
+    spinAngleStart = Math.random() * 10 + 10; // Une vitesse initiale aléatoire
     spinTime = 0;
-    spinTimeTotal = Math.random() * 3000 + 4000;
+    spinTimeTotal = Math.random() * 3000 + 4000; // Durée de la rotation
+
     let currentAngle = startAngle;
 
     function rotate() {
         spinAngleStart *= 1 - easing; // Appliquer un effet de ralentissement
-        currentAngle += spinAngleStart;
-        drawWheel(ctx, gifts, currentAngle);
-        spinTime += 30;
+        currentAngle += spinAngleStart; // Incrémenter l'angle de rotation
+
+        drawWheel(ctx, gifts, currentAngle); // Dessiner la roue
+
+        spinTime += 30; // Ajouter du temps à l'animation
 
         if (spinTime >= spinTimeTotal) {
-            const degrees = (currentAngle * 180) / Math.PI + 90;
-            const arcd = (arc * 180) / Math.PI;
+            const degrees = (currentAngle * 180) / Math.PI + 90; // Convertir en degrés
+            const arcd = (arc * 180) / Math.PI; // Longueur d'un arc
             const index = Math.floor((360 - (degrees % 360)) / arcd) % gifts.length;
 
-            resultDiv.textContent = `Résultat: ${gifts[index]}`;
+            resultDiv.textContent = `Résultat: ${gifts[index]}`; // Afficher le résultat
+            isSpinning = false; // La rotation est terminée
             return;
         }
 
-        requestAnimationFrame(rotate); // Utilisation de requestAnimationFrame pour la fluidité
+        requestAnimationFrame(rotate); // Utiliser requestAnimationFrame pour plus de fluidité
     }
 
-    rotate();
+    rotate(); // Lancer la rotation
 }
 
 spinButton1.addEventListener("click", () => rotateWheel(ctx1, startAngle1, gifts1, result1));
