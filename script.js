@@ -1,15 +1,14 @@
 const canvas = document.getElementById("wheelCanvas");
 const ctx = canvas.getContext("2d");
 const spinButton = document.getElementById("spinButton");
+const editButton = document.getElementById("editButton");
+const popup = document.getElementById("popup");
+const prizeList = document.getElementById("prizeList");
+const saveButton = document.getElementById("saveButton");
 const resultDiv = document.getElementById("result");
 
-const prizes = [
-    { label: "Cadeau 1", image: "gift1.png" },
-    { label: "Cadeau 2", image: "gift2.png" },
-    { label: "Cadeau 3", image: "gift3.png" },
-    { label: "Cadeau 4", image: "gift4.png" },
-    { label: "Cadeau 5", image: "gift5.png" },
-];
+// Liste initiale des cadeaux
+let prizes = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5"];
 
 let startAngle = 0;
 const arc = (2 * Math.PI) / prizes.length;
@@ -22,7 +21,7 @@ let spinTimeTotal = 0;
 function drawWheel() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Dessiner les sections et attacher les images
+    // Dessiner les sections avec les noms des cadeaux
     prizes.forEach((prize, i) => {
         const angle = startAngle + i * arc;
 
@@ -33,19 +32,18 @@ function drawWheel() {
         ctx.arc(250, 250, 200, angle, angle + arc, false);
         ctx.fill();
 
-        // Dessiner l'image
+        // Dessiner le texte
         ctx.save();
         ctx.translate(250, 250);
         ctx.rotate(angle + arc / 2);
-        const img = new Image();
-        img.src = prize.image;
-        img.onload = () => {
-            ctx.drawImage(img, 150, -25, 50, 50); // Positionner les images sur la section
-        };
+        ctx.fillStyle = "black";
+        ctx.font = "16px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(prize, 150, 0);
         ctx.restore();
     });
 
-    // Ajouter une bordure au centre
+    // Cercle central
     ctx.beginPath();
     ctx.arc(250, 250, 50, 0, 2 * Math.PI);
     ctx.fillStyle = "#fff";
@@ -73,9 +71,35 @@ function stopRotateWheel() {
     const arcd = (arc * 180) / Math.PI;
     const index = Math.floor((360 - (degrees % 360)) / arcd) % prizes.length;
 
-    resultDiv.textContent = `Résultat: ${prizes[index].label}`;
+    resultDiv.textContent = `Résultat: ${prizes[index]}`;
 }
 
+// Gérer l'ouverture du popup
+editButton.addEventListener("click", () => {
+    popup.classList.remove("hidden");
+    prizeList.innerHTML = "";
+
+    // Créer des champs pour modifier les noms des cadeaux
+    prizes.forEach((prize, index) => {
+        const li = document.createElement("li");
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = prize;
+        input.dataset.index = index;
+        li.appendChild(input);
+        prizeList.appendChild(li);
+    });
+});
+
+// Gérer la sauvegarde des cadeaux
+saveButton.addEventListener("click", () => {
+    const inputs = prizeList.querySelectorAll("input");
+    prizes = Array.from(inputs).map(input => input.value);
+    popup.classList.add("hidden");
+    drawWheel();
+});
+
+// Lancer la roue
 spinButton.addEventListener("click", () => {
     spinAngleStart = Math.random() * 10 + 10;
     spinTime = 0;
