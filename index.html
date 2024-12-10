@@ -200,8 +200,12 @@
 
     <script>
         let lastMouseMoveTime = Date.now();
+        const wheels = [
+            { canvasId: "wheelCanvas1", spinButtonId: "spinButton1", resultId: "result1", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] },
+            { canvasId: "wheelCanvas2", spinButtonId: "spinButton2", resultId: "result2", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] },
+            { canvasId: "wheelCanvas3", spinButtonId: "spinButton3", resultId: "result3", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] }
+        ];
 
-        // Vérification d'inactivité
         function checkMouseInactive() {
             const currentTime = Date.now();
             if (currentTime - lastMouseMoveTime > 30000) {
@@ -223,15 +227,42 @@
         });
 
         document.getElementById("saveButton").addEventListener("click", () => {
+            wheels[0].gifts = [
+                document.getElementById("gift1_1").value,
+                document.getElementById("gift2_1").value,
+                document.getElementById("gift3_1").value,
+                document.getElementById("gift4_1").value,
+                document.getElementById("gift5_1").value,
+                document.getElementById("gift6_1").value
+            ];
+            wheels[1].gifts = [
+                document.getElementById("gift1_2").value,
+                document.getElementById("gift2_2").value,
+                document.getElementById("gift3_2").value,
+                document.getElementById("gift4_2").value,
+                document.getElementById("gift5_2").value,
+                document.getElementById("gift6_2").value
+            ];
+            wheels[2].gifts = [
+                document.getElementById("gift1_3").value,
+                document.getElementById("gift2_3").value,
+                document.getElementById("gift3_3").value,
+                document.getElementById("gift4_3").value,
+                document.getElementById("gift5_3").value,
+                document.getElementById("gift6_3").value
+            ];
+
+            wheels.forEach(wheel => drawWheel(wheel.canvasId, ["#ff9999", "#66b3ff"], wheel.gifts));
             document.getElementById("popup").style.display = "none";
         });
 
-        // Dessiner les roues
         function drawWheel(canvasId, colors, gifts) {
             const canvas = document.getElementById(canvasId);
             const ctx = canvas.getContext("2d");
             const segments = gifts.length;
             const arc = (2 * Math.PI) / segments;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             gifts.forEach((gift, i) => {
                 const angle = i * arc;
@@ -252,9 +283,33 @@
             });
         }
 
-        drawWheel("wheelCanvas1", ["#ff9999", "#66b3ff"], ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"]);
-        drawWheel("wheelCanvas2", ["#ff9999", "#66b3ff"], ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"]);
-        drawWheel("wheelCanvas3", ["#ff9999", "#66b3ff"], ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"]);
+        function spinWheel(wheel) {
+            const canvas = document.getElementById(wheel.canvasId);
+            const ctx = canvas.getContext("2d");
+            const gifts = wheel.gifts;
+            let angle = 0;
+            const spinTime = Math.random() * 3000 + 2000;
+            const spinInterval = 20;
+
+            const interval = setInterval(() => {
+                angle += 20 * Math.PI / 180;
+                drawWheel(wheel.canvasId, ["#ff9999", "#66b3ff"], gifts);
+                ctx.translate(150, 150);
+                ctx.rotate(angle);
+                ctx.translate(-150, -150);
+            }, spinInterval);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                const resultIndex = Math.floor(Math.random() * gifts.length);
+                document.getElementById(wheel.resultId).textContent = `Résultat: ${gifts[resultIndex]}`;
+            }, spinTime);
+        }
+
+        wheels.forEach(wheel => {
+            drawWheel(wheel.canvasId, ["#ff9999", "#66b3ff"], wheel.gifts);
+            document.getElementById(wheel.spinButtonId).addEventListener("click", () => spinWheel(wheel));
+        });
     </script>
 </body>
 </html>
