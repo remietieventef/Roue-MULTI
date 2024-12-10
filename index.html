@@ -1,57 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deux Roues de Noël Personnalisées</title>
+    <title>Roues Cadeaux</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div class="container">
-        <!-- Roue 1 -->
         <div class="wheel-container">
-            <button id="customizeButton1" class="top-right">Personnaliser Roue 1</button>
             <canvas id="wheelCanvas1" width="500" height="500"></canvas>
-            <button id="spinButton1">Tourner Roue 1</button>
-            <div id="result1">Résultat: ?</div>
+            <button id="customizeButton" class="top-right">Personnaliser</button>
+            <button id="spinButton1">Tourner</button>
+            <div id="result1"></div>
         </div>
-        <!-- Roue 2 -->
         <div class="wheel-container">
-            <button id="customizeButton2" class="top-right">Personnaliser Roue 2</button>
             <canvas id="wheelCanvas2" width="500" height="500"></canvas>
-            <button id="spinButton2">Tourner Roue 2</button>
-            <div id="result2">Résultat: ?</div>
+            <button id="spinButton2">Tourner</button>
+            <div id="result2"></div>
         </div>
     </div>
 
-    <!-- Popup de personnalisation pour Roue 1 -->
-    <div id="popup1" class="popup hidden">
+    <!-- Popup pour personnaliser -->
+    <div id="popup" class="popup">
         <div class="popup-content">
-            <h2>Personnalisez les cadeaux de la Roue 1</h2>
-            <form id="customizeForm1">
-                <label for="gift1_1">Cadeau 1 :</label><input type="text" id="gift1_1" value="Cadeau 1"><br>
-                <label for="gift2_1">Cadeau 2 :</label><input type="text" id="gift2_1" value="Cadeau 2"><br>
-                <label for="gift3_1">Cadeau 3 :</label><input type="text" id="gift3_1" value="Cadeau 3"><br>
-                <label for="gift4_1">Cadeau 4 :</label><input type="text" id="gift4_1" value="Cadeau 4"><br>
-                <label for="gift5_1">Cadeau 5 :</label><input type="text" id="gift5_1" value="Cadeau 5"><br>
-                <label for="gift6_1">Cadeau 6 :</label><input type="text" id="gift6_1" value="Cadeau 6"><br>
-                <button type="button" id="saveButton1">Sauvegarder</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Popup de personnalisation pour Roue 2 -->
-    <div id="popup2" class="popup hidden">
-        <div class="popup-content">
-            <h2>Personnalisez les cadeaux de la Roue 2</h2>
-            <form id="customizeForm2">
-                <label for="gift1_2">Cadeau 1 :</label><input type="text" id="gift1_2" value="Cadeau 1"><br>
-                <label for="gift2_2">Cadeau 2 :</label><input type="text" id="gift2_2" value="Cadeau 2"><br>
-                <label for="gift3_2">Cadeau 3 :</label><input type="text" id="gift3_2" value="Cadeau 3"><br>
-                <label for="gift4_2">Cadeau 4 :</label><input type="text" id="gift4_2" value="Cadeau 4"><br>
-                <label for="gift5_2">Cadeau 5 :</label><input type="text" id="gift5_2" value="Cadeau 5"><br>
-                <label for="gift6_2">Cadeau 6 :</label><input type="text" id="gift6_2" value="Cadeau 6"><br>
-                <button type="button" id="saveButton2">Sauvegarder</button>
+            <form id="customizeForm">
+                <label for="gift1">Cadeau 1:</label>
+                <input type="text" id="gift1" name="gift1" placeholder="Cadeau 1">
+                
+                <label for="gift2">Cadeau 2:</label>
+                <input type="text" id="gift2" name="gift2" placeholder="Cadeau 2">
+                
+                <label for="gift3">Cadeau 3:</label>
+                <input type="text" id="gift3" name="gift3" placeholder="Cadeau 3">
+                
+                <label for="gift4">Cadeau 4:</label>
+                <input type="text" id="gift4" name="gift4" placeholder="Cadeau 4">
+                
+                <label for="gift5">Cadeau 5:</label>
+                <input type="text" id="gift5" name="gift5" placeholder="Cadeau 5">
+                
+                <label for="gift6">Cadeau 6:</label>
+                <input type="text" id="gift6" name="gift6" placeholder="Cadeau 6">
+                
+                <button type="button" id="saveButton">Sauvegarder</button>
             </form>
         </div>
     </div>
