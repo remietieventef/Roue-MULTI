@@ -8,10 +8,23 @@
 </head>
 <body>
     <div class="container">
+        <button id="editButton">Modifier les cadeaux</button>
         <canvas id="wheelCanvas" width="500" height="500"></canvas>
         <button id="spinButton">Tourner</button>
         <div id="result">Résultat: ?</div>
     </div>
+
+    <!-- Popup pour modifier les noms des cadeaux -->
+    <div id="popup" class="hidden">
+        <div class="popup-content">
+            <h3>Modifier les cadeaux</h3>
+            <ul id="prizeList">
+                <!-- Champs dynamiques pour les cadeaux -->
+            </ul>
+            <button id="saveButton">Enregistrer</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
