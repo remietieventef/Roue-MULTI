@@ -21,24 +21,36 @@ let spinTimeTotal = 0;
 
 function drawWheel() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Dessiner les sections et attacher les images
     prizes.forEach((prize, i) => {
         const angle = startAngle + i * arc;
+
+        // Dessiner une section
         ctx.beginPath();
         ctx.fillStyle = i % 2 === 0 ? "#ffcccc" : "#ff9999";
         ctx.moveTo(250, 250);
         ctx.arc(250, 250, 200, angle, angle + arc, false);
         ctx.fill();
+
+        // Dessiner l'image
         ctx.save();
-        ctx.translate(
-            250 + Math.cos(angle + arc / 2) * 150,
-            250 + Math.sin(angle + arc / 2) * 150
-        );
-        ctx.rotate(angle + arc / 2 + Math.PI / 2);
+        ctx.translate(250, 250);
+        ctx.rotate(angle + arc / 2);
         const img = new Image();
         img.src = prize.image;
-        img.onload = () => ctx.drawImage(img, -25, -25, 50, 50);
+        img.onload = () => {
+            ctx.drawImage(img, 150, -25, 50, 50); // Positionner les images sur la section
+        };
         ctx.restore();
     });
+
+    // Ajouter une bordure au centre
+    ctx.beginPath();
+    ctx.arc(250, 250, 50, 0, 2 * Math.PI);
+    ctx.fillStyle = "#fff";
+    ctx.fill();
+    ctx.stroke();
 }
 
 function rotateWheel() {
