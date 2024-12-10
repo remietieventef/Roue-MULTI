@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roue de Noël</title>
+    <title>Roue de Noël Personnalisée</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <button id="editButton">Modifier les cadeaux</button>
+        <button id="customizeButton" class="top-right">Personnaliser</button>
         <canvas id="wheelCanvas" width="500" height="500"></canvas>
         <button id="spinButton">Tourner</button>
         <div id="result">Résultat: ?</div>
     </div>
 
-    <!-- Popup pour modifier les noms des cadeaux -->
-    <div id="popup" class="hidden">
+    <!-- Popup de personnalisation -->
+    <div id="popup" class="popup hidden">
         <div class="popup-content">
-            <h3>Modifier les cadeaux</h3>
-            <ul id="prizeList"></ul>
-            <button id="saveButton">Enregistrer</button>
+            <h2>Personnalisez les cadeaux</h2>
+            <form id="customizeForm">
+                <label for="gift1">Cadeau 1 :</label><input type="text" id="gift1" value="Cadeau 1"><br>
+                <label for="gift2">Cadeau 2 :</label><input type="text" id="gift2" value="Cadeau 2"><br>
+                <label for="gift3">Cadeau 3 :</label><input type="text" id="gift3" value="Cadeau 3"><br>
+                <label for="gift4">Cadeau 4 :</label><input type="text" id="gift4" value="Cadeau 4"><br>
+                <label for="gift5">Cadeau 5 :</label><input type="text" id="gift5" value="Cadeau 5"><br>
+                <button type="button" id="saveButton">Sauvegarder</button>
+            </form>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
