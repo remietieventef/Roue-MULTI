@@ -96,16 +96,30 @@
             padding: 20px;
             border-radius: 10px;
             text-align: center;
+            max-width: 600px;
+            width: 100%;
         }
 
         .popup-section {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             margin-bottom: 20px;
         }
 
         .popup-left, .popup-right {
-            width: 45%;
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
         }
     </style>
 </head>
@@ -153,6 +167,15 @@
                     <label for="gift4_2">Cadeau 4 :</label><input type="text" id="gift4_2" value="Massage de 1h 💆‍♀️"><br>
                     <label for="gift5_2">Cadeau 5 :</label><input type="text" id="gift5_2" value="1 an de Netflix 📺"><br>
                     <label for="gift6_2">Cadeau 6 :</label><input type="text" id="gift6_2" value="Serviette de plage 🏖️"><br>
+                </div>
+                <div class="popup-left">
+                    <h3>Roue 3</h3>
+                    <label for="gift1_3">Cadeau 1 :</label><input type="text" id="gift1_3" value="Casque audio sans fil (Bose) 🎵"><br>
+                    <label for="gift2_3">Cadeau 2 :</label><input type="text" id="gift2_3" value="Abonnement salle de sport 🏋️‍♀️"><br>
+                    <label for="gift3_3">Cadeau 3 :</label><input type="text" id="gift3_3" value="Carte cadeau 100 € 🎁"><br>
+                    <label for="gift4_3">Cadeau 4 :</label><input type="text" id="gift4_3" value="Airfryer 🍟"><br>
+                    <label for="gift5_3">Cadeau 5 :</label><input type="text" id="gift5_3" value="Équipement sportif 200 € ⚽"><br>
+                    <label for="gift6_3">Cadeau 6 :</label><input type="text" id="gift6_3" value="Vol en montgolfière 🎈"><br>
                 </div>
             </div>
             <button id="saveButton">Sauvegarder</button>
@@ -256,4 +279,3 @@
     </script>
 </body>
 </html>
-
