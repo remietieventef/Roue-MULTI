@@ -236,30 +236,6 @@
             ctx.fill();
         }
 
-        function spinWheel(wheel) {
-            const canvas = document.getElementById(wheel.canvasId);
-            const ctx = canvas.getContext("2d");
-            const gifts = wheel.gifts;
-
-            let angle = 0;
-            const spinTime = Math.random() * 3000 + 2000;
-            const spinInterval = 40; // Ralentissement de 50%
-
-            const interval = setInterval(() => {
-                angle += 0.05; // Rotation plus lente
-                drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], gifts);
-                ctx.translate(150, 150);
-                ctx.rotate(angle);
-                ctx.translate(-150, -150);
-            }, spinInterval);
-
-            setTimeout(() => {
-                clearInterval(interval);
-                const resultIndex = Math.floor(Math.random() * gifts.length);
-                document.getElementById(wheel.resultId).textContent = `Résultat: ${gifts[resultIndex]}`;
-            }, spinTime);
-        }
-
         document.getElementById("customizeButton").addEventListener("click", () => {
             document.getElementById("popup").style.display = "flex";
         });
@@ -267,9 +243,7 @@
         document.getElementById("saveButton").addEventListener("click", () => {
             wheels.forEach((wheel, i) => {
                 const inputs = document.querySelectorAll(`#popup input[id^=gift${i + 1}_]`);
-                if (inputs.length === 6) {
-                    wheel.gifts = Array.from(inputs).map(input => input.value);
-                }
+                wheel.gifts = Array.from(inputs).map(input => input.value);
                 drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
             });
             document.getElementById("popup").style.display = "none";
@@ -277,7 +251,6 @@
 
         wheels.forEach(wheel => {
             drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
-            document.getElementById(wheel.spinButtonId).addEventListener("click", () => spinWheel(wheel));
         });
     </script>
 </body>
