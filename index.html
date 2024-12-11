@@ -108,6 +108,25 @@
             width: 45%;
         }
 
+        /* Plan vidéo */
+        #videoContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: black;
+        }
+
+        #backgroundVideo {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Sécuriser la pop-up avec un champ de mot de passe */
         .password-container {
             margin: 20px 0;
         }
@@ -131,6 +150,17 @@
     </style>
 </head>
 <body>
+    <!-- Conteneur vidéo -->
+    <div id="videoContainer">
+        <iframe id="backgroundVideo" 
+            src="https://www.youtube.com/embed/videoseries?list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT&autoplay=1&mute=1" 
+            frameborder="0" 
+            allow="autoplay; encrypted-media; fullscreen; accelerometer; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- Conteneur principal -->
     <div class="container">
         <button id="customizeButton" class="top-right">Personnaliser</button>
         <div class="wheels-container">
@@ -152,53 +182,116 @@
         </div>
     </div>
 
+    <!-- Popup de personnalisation protégée par un mot de passe -->
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+            <h2>Entrez le mot de passe pour accéder à la personnalisation</h2>
+            <div class="password-container">
+                <input type="password" id="passwordInput" placeholder="Mot de passe">
+                <button id="accessButton">Accéder</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Popup de personnalisation -->
-    <div id="popup" class="popup">
+    <div id="popupContent" class="popup hidden">
         <div class="popup-content">
             <h2>Personnalisez les cadeaux</h2>
             <div class="popup-section">
                 <div class="popup-left">
                     <h3>Roue 1</h3>
-                    <label for="gift1_1">Cadeau 1 :</label><input type="text" id="gift1_1" value="Bougie parfumée 🕯️"><br>
-                    <label for="gift2_1">Cadeau 2 :</label><input type="text" id="gift2_1" value="Lunch avec Adeline 🍽️"><br>
-                    <label for="gift3_1">Cadeau 3 :</label><input type="text" id="gift3_1" value="Training avec Pierre 🏋️"><br>
-                    <label for="gift4_1">Cadeau 4 :</label><input type="text" id="gift4_1" value="Poster de Laura 🖼️"><br>
-                    <label for="gift5_1">Cadeau 5 :</label><input type="text" id="gift5_1" value="Arriver à 10h demain 🛌"><br>
-                    <label for="gift6_1">Cadeau 6 :</label><input type="text" id="gift6_1" value="Lunch expense 💳"><br>
+                    <label for="gift1_1">Cadeau 1 :</label><input type="text" id="gift1_1" value="Cadeau 1"><br>
+                    <label for="gift2_1">Cadeau 2 :</label><input type="text" id="gift2_1" value="Cadeau 2"><br>
+                    <label for="gift3_1">Cadeau 3 :</label><input type="text" id="gift3_1" value="Cadeau 3"><br>
+                    <label for="gift4_1">Cadeau 4 :</label><input type="text" id="gift4_1" value="Cadeau 4"><br>
+                    <label for="gift5_1">Cadeau 5 :</label><input type="text" id="gift5_1" value="Cadeau 5"><br>
+                    <label for="gift6_1">Cadeau 6 :</label><input type="text" id="gift6_1" value="Cadeau 6"><br>
                 </div>
                 <div class="popup-right">
                     <h3>Roue 2</h3>
-                    <label for="gift1_2">Cadeau 1 :</label><input type="text" id="gift1_2" value="Machine à café ☕"><br>
-                    <label for="gift2_2">Cadeau 2 :</label><input type="text" id="gift2_2" value="Airpods 🎧"><br>
-                    <label for="gift3_2">Cadeau 3 :</label><input type="text" id="gift3_2" value="Figurine de Laura 🧸"><br>
-                    <label for="gift4_2">Cadeau 4 :</label><input type="text" id="gift4_2" value="Massage de 1h 💆‍♀️"><br>
-                    <label for="gift5_2">Cadeau 5 :</label><input type="text" id="gift5_2" value="1 an de Netflix 📺"><br>
-                    <label for="gift6_2">Cadeau 6 :</label><input type="text" id="gift6_2" value="Serviette de plage 🏖️"><br>
+                    <label for="gift1_2">Cadeau 1 :</label><input type="text" id="gift1_2" value="Cadeau 1"><br>
+                    <label for="gift2_2">Cadeau 2 :</label><input type="text" id="gift2_2" value="Cadeau 2"><br>
+                    <label for="gift3_2">Cadeau 3 :</label><input type="text" id="gift3_2" value="Cadeau 3"><br>
+                    <label for="gift4_2">Cadeau 4 :</label><input type="text" id="gift4_2" value="Cadeau 4"><br>
+                    <label for="gift5_2">Cadeau 5 :</label><input type="text" id="gift5_2" value="Cadeau 5"><br>
+                    <label for="gift6_2">Cadeau 6 :</label><input type="text" id="gift6_2" value="Cadeau 6"><br>
                 </div>
             </div>
             <div class="popup-section">
                 <div class="popup-left">
                     <h3>Roue 3</h3>
-                    <label for="gift1_3">Cadeau 1 :</label><input type="text" id="gift1_3" value="Casque audio sans fil (Bose) 🎵"><br>
-                    <label for="gift2_3">Cadeau 2 :</label><input type="text" id="gift2_3" value="Abonnement salle de sport 🏋️‍♀️"><br>
-                    <label for="gift3_3">Cadeau 3 :</label><input type="text" id="gift3_3" value="Carte cadeau 100 € 🎁"><br>
-                    <label for="gift4_3">Cadeau 4 :</label><input type="text" id="gift4_3" value="Airfryer 🍟"><br>
-                    <label for="gift5_3">Cadeau 5 :</label><input type="text" id="gift5_3" value="Équipement sportif 200 € ⚽"><br>
-                    <label for="gift6_3">Cadeau 6 :</label><input type="text" id="gift6_3" value="Vol en montgolfière 🎈"><br>
+                    <label for="gift1_3">Cadeau 1 :</label><input type="text" id="gift1_3" value="Cadeau 1"><br>
+                    <label for="gift2_3">Cadeau 2 :</label><input type="text" id="gift2_3" value="Cadeau 2"><br>
+                    <label for="gift3_3">Cadeau 3 :</label><input type="text" id="gift3_3" value="Cadeau 3"><br>
+                    <label for="gift4_3">Cadeau 4 :</label><input type="text" id="gift4_3" value="Cadeau 4"><br>
+                    <label for="gift5_3">Cadeau 5 :</label><input type="text" id="gift5_3" value="Cadeau 5"><br>
+                    <label for="gift6_3">Cadeau 6 :</label><input type="text" id="gift6_3" value="Cadeau 6"><br>
                 </div>
             </div>
             <button id="saveButton">Sauvegarder</button>
         </div>
     </div>
 
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
+        // Initialisation d'EmailJS avec votre clé publique
+        emailjs.init("hoz22gRCGAh20qkjt");
+
+        let lastMouseMoveTime = Date.now();
+        const wheels = [
+            { canvasId: "wheelCanvas1", spinButtonId: "spinButton1", resultId: "result1", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] },
+            { canvasId: "wheelCanvas2", spinButtonId: "spinButton2", resultId: "result2", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] },
+            { canvasId: "wheelCanvas3", spinButtonId: "spinButton3", resultId: "result3", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] }
+        ];
+
+        function sendEmail(score) {
+            const emailData = {
+                to_email: "default@example.com",  // L'adresse e-mail par défaut à laquelle envoyer l'e-mail
+                subject: "Score de la roue de Noël",
+                message: `Félicitations ! Vous avez gagné : ${score}`,
+            };
+
+            emailjs.send("service_dh5ll1e", "template_83aobr9", emailData)
+                .then(function(response) {
+                    console.log('Succès !', response);
+                }, function(error) {
+                    console.log('Échec de l\'envoi :', error);
+                });
+        }
+
+        function checkMouseInactive() {
+            const currentTime = Date.now();
+            if (currentTime - lastMouseMoveTime > 30000) {
+                document.getElementById("videoContainer").style.display = "block";
+                document.querySelector(".container").style.display = "none";
+            }
+        }
+
+        document.body.addEventListener("mousemove", () => {
+            lastMouseMoveTime = Date.now();
+            document.getElementById("videoContainer").style.display = "none";
+            document.querySelector(".container").style.display = "flex";
+        });
+
+        setInterval(checkMouseInactive, 100);
+
         document.getElementById("customizeButton").addEventListener("click", () => {
             document.getElementById("popup").style.display = "flex";
         });
 
+        // Vérification du mot de passe
+        document.getElementById("accessButton").addEventListener("click", () => {
+            const password = document.getElementById("passwordInput").value;
+            if (password === "weareeffrance") {
+                document.getElementById("popup").style.display = "none";
+                document.getElementById("popupContent").style.display = "flex";
+            } else {
+                alert("Mot de passe incorrect !");
+            }
+        });
+
         document.getElementById("saveButton").addEventListener("click", () => {
-            document.getElementById("popup").style.display = "none";
-            const gifts1 = [
+            wheels[0].gifts = [
                 document.getElementById("gift1_1").value,
                 document.getElementById("gift2_1").value,
                 document.getElementById("gift3_1").value,
@@ -206,7 +299,7 @@
                 document.getElementById("gift5_1").value,
                 document.getElementById("gift6_1").value
             ];
-            const gifts2 = [
+            wheels[1].gifts = [
                 document.getElementById("gift1_2").value,
                 document.getElementById("gift2_2").value,
                 document.getElementById("gift3_2").value,
@@ -214,7 +307,7 @@
                 document.getElementById("gift5_2").value,
                 document.getElementById("gift6_2").value
             ];
-            const gifts3 = [
+            wheels[2].gifts = [
                 document.getElementById("gift1_3").value,
                 document.getElementById("gift2_3").value,
                 document.getElementById("gift3_3").value,
@@ -223,13 +316,72 @@
                 document.getElementById("gift6_3").value
             ];
 
-            wheels[0].gifts = gifts1;
-            wheels[1].gifts = gifts2;
-            wheels[2].gifts = gifts3;
+            wheels.forEach(wheel => drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts)); // Couleurs plus neutres
+            document.getElementById("popupContent").style.display = "none";
+        });
 
-            wheels.forEach(wheel => {
-                drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
+        function drawWheel(canvasId, colors, gifts) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext("2d");
+            const segments = gifts.length;
+            const arc = (2 * Math.PI) / segments;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Dessin des segments
+            gifts.forEach((gift, i) => {
+                const angle = i * arc;
+                ctx.beginPath();
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.moveTo(150, 150);
+                ctx.arc(150, 150, 150, angle, angle + arc);
+                ctx.fill();
+
+                ctx.save();
+                ctx.translate(150, 150);
+                ctx.rotate(angle + arc / 2);
+                ctx.fillStyle = "black";
+                ctx.textAlign = "center";
+                ctx.font = "14px Arial";
+                ctx.fillText(gift, 100, 10);
+                ctx.restore();
             });
+
+            // Dessin du centre blanc
+            ctx.beginPath();
+            ctx.arc(150, 150, 30, 0, 2 * Math.PI);
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+        }
+
+        function spinWheel(wheel) {
+            const canvas = document.getElementById(wheel.canvasId);
+            const ctx = canvas.getContext("2d");
+            const gifts = wheel.gifts;
+            let angle = 0;
+            const spinTime = Math.random() * 3000 + 2000;
+            const spinInterval = 20;
+
+            const interval = setInterval(() => {
+                angle += 20 * Math.PI / 180;
+                drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], gifts);
+                ctx.translate(150, 150);
+                ctx.rotate(angle);
+                ctx.translate(-150, -150);
+            }, spinInterval);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                const resultIndex = Math.floor(Math.random() * gifts.length);
+                document.getElementById(wheel.resultId).textContent = `Résultat: ${gifts[resultIndex]}`;
+                // Envoi de l'e-mail avec le score
+                sendEmail(gifts[resultIndex]);
+            }, spinTime);
+        }
+
+        wheels.forEach(wheel => {
+            drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
+            document.getElementById(wheel.spinButtonId).addEventListener("click", () => spinWheel(wheel));
         });
     </script>
 </body>
