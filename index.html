@@ -108,23 +108,6 @@
             width: 45%;
         }
 
-        #videoContainer {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            background: black;
-        }
-
-        #backgroundVideo {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
         .password-container {
             margin: 20px 0;
         }
@@ -148,15 +131,6 @@
     </style>
 </head>
 <body>
-    <div id="videoContainer">
-        <iframe id="backgroundVideo" 
-            src="https://www.youtube.com/embed/videoseries?list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT&autoplay=1&mute=1" 
-            frameborder="0" 
-            allow="autoplay; encrypted-media; fullscreen; accelerometer; picture-in-picture" 
-            allowfullscreen>
-        </iframe>
-    </div>
-
     <div class="container">
         <button id="customizeButton" class="top-right">Personnaliser</button>
         <div class="wheels-container">
@@ -178,120 +152,84 @@
         </div>
     </div>
 
-    <div id="popup" class="popup hidden">
+    <!-- Popup de personnalisation -->
+    <div id="popup" class="popup">
         <div class="popup-content">
-            <h2>Entrez le mot de passe pour accéder à la personnalisation</h2>
-            <div class="password-container">
-                <input type="password" id="passwordInput" placeholder="Mot de passe">
-                <button id="accessButton">Accéder</button>
+            <h2>Personnalisez les cadeaux</h2>
+            <div class="popup-section">
+                <div class="popup-left">
+                    <h3>Roue 1</h3>
+                    <label for="gift1_1">Cadeau 1 :</label><input type="text" id="gift1_1" value="Bougie parfumée 🕯️"><br>
+                    <label for="gift2_1">Cadeau 2 :</label><input type="text" id="gift2_1" value="Lunch avec Adeline 🍽️"><br>
+                    <label for="gift3_1">Cadeau 3 :</label><input type="text" id="gift3_1" value="Training avec Pierre 🏋️"><br>
+                    <label for="gift4_1">Cadeau 4 :</label><input type="text" id="gift4_1" value="Poster de Laura 🖼️"><br>
+                    <label for="gift5_1">Cadeau 5 :</label><input type="text" id="gift5_1" value="Arriver à 10h demain 🛌"><br>
+                    <label for="gift6_1">Cadeau 6 :</label><input type="text" id="gift6_1" value="Lunch expense 💳"><br>
+                </div>
+                <div class="popup-right">
+                    <h3>Roue 2</h3>
+                    <label for="gift1_2">Cadeau 1 :</label><input type="text" id="gift1_2" value="Machine à café ☕"><br>
+                    <label for="gift2_2">Cadeau 2 :</label><input type="text" id="gift2_2" value="Airpods 🎧"><br>
+                    <label for="gift3_2">Cadeau 3 :</label><input type="text" id="gift3_2" value="Figurine de Laura 🧸"><br>
+                    <label for="gift4_2">Cadeau 4 :</label><input type="text" id="gift4_2" value="Massage de 1h 💆‍♀️"><br>
+                    <label for="gift5_2">Cadeau 5 :</label><input type="text" id="gift5_2" value="1 an de Netflix 📺"><br>
+                    <label for="gift6_2">Cadeau 6 :</label><input type="text" id="gift6_2" value="Serviette de plage 🏖️"><br>
+                </div>
             </div>
+            <div class="popup-section">
+                <div class="popup-left">
+                    <h3>Roue 3</h3>
+                    <label for="gift1_3">Cadeau 1 :</label><input type="text" id="gift1_3" value="Casque audio sans fil (Bose) 🎵"><br>
+                    <label for="gift2_3">Cadeau 2 :</label><input type="text" id="gift2_3" value="Abonnement salle de sport 🏋️‍♀️"><br>
+                    <label for="gift3_3">Cadeau 3 :</label><input type="text" id="gift3_3" value="Carte cadeau 100 € 🎁"><br>
+                    <label for="gift4_3">Cadeau 4 :</label><input type="text" id="gift4_3" value="Airfryer 🍟"><br>
+                    <label for="gift5_3">Cadeau 5 :</label><input type="text" id="gift5_3" value="Équipement sportif 200 € ⚽"><br>
+                    <label for="gift6_3">Cadeau 6 :</label><input type="text" id="gift6_3" value="Vol en montgolfière 🎈"><br>
+                </div>
+            </div>
+            <button id="saveButton">Sauvegarder</button>
         </div>
     </div>
 
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        emailjs.init("hoz22gRCGAh20qkjt");
+        document.getElementById("customizeButton").addEventListener("click", () => {
+            document.getElementById("popup").style.display = "flex";
+        });
 
-        const wheels = [
-            { 
-                canvasId: "wheelCanvas1", 
-                spinButtonId: "spinButton1", 
-                resultId: "result1", 
-                gifts: [
-                    "Bougie parfumée 🕯️",
-                    "Lunch avec Adeline 🍽️",
-                    "Training avec Pierre 🏋️",
-                    "Poster de Laura 🖼️",
-                    "Arriver à 10h demain 🛌",
-                    "Lunch expense 💳"
-                ] 
-            },
-            { 
-                canvasId: "wheelCanvas2", 
-                spinButtonId: "spinButton2", 
-                resultId: "result2", 
-                gifts: [
-                    "Machine à café ☕",
-                    "Airpods 🎧",
-                    "Figurine de Laura 🧸",
-                    "Massage de 1h 💆‍♀️",
-                    "1 an de Netflix 📺",
-                    "Serviette de plage 🏖️"
-                ] 
-            },
-            { 
-                canvasId: "wheelCanvas3", 
-                spinButtonId: "spinButton3", 
-                resultId: "result3", 
-                gifts: [
-                    "Casque audio sans fil (Bose) 🎵",
-                    "Abonnement salle de sport 🏋️‍♀️",
-                    "Carte cadeau 100 € 🎁",
-                    "Airfryer 🍟",
-                    "Équipement sportif 200 € ⚽",
-                    "Vol en montgolfière 🎈"
-                ] 
-            }
-        ];
+        document.getElementById("saveButton").addEventListener("click", () => {
+            document.getElementById("popup").style.display = "none";
+            const gifts1 = [
+                document.getElementById("gift1_1").value,
+                document.getElementById("gift2_1").value,
+                document.getElementById("gift3_1").value,
+                document.getElementById("gift4_1").value,
+                document.getElementById("gift5_1").value,
+                document.getElementById("gift6_1").value
+            ];
+            const gifts2 = [
+                document.getElementById("gift1_2").value,
+                document.getElementById("gift2_2").value,
+                document.getElementById("gift3_2").value,
+                document.getElementById("gift4_2").value,
+                document.getElementById("gift5_2").value,
+                document.getElementById("gift6_2").value
+            ];
+            const gifts3 = [
+                document.getElementById("gift1_3").value,
+                document.getElementById("gift2_3").value,
+                document.getElementById("gift3_3").value,
+                document.getElementById("gift4_3").value,
+                document.getElementById("gift5_3").value,
+                document.getElementById("gift6_3").value
+            ];
 
-        function drawWheel(canvasId, colors, gifts) {
-            const canvas = document.getElementById(canvasId);
-            const ctx = canvas.getContext("2d");
-            const segments = gifts.length;
-            const arc = (2 * Math.PI) / segments;
+            wheels[0].gifts = gifts1;
+            wheels[1].gifts = gifts2;
+            wheels[2].gifts = gifts3;
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            gifts.forEach((gift, i) => {
-                const angle = i * arc;
-                ctx.beginPath();
-                ctx.fillStyle = colors[i % colors.length];
-                ctx.moveTo(150, 150);
-                ctx.arc(150, 150, 150, angle, angle + arc);
-                ctx.fill();
-
-                ctx.save();
-                ctx.translate(150, 150);
-                ctx.rotate(angle + arc / 2);
-                ctx.fillStyle = "black";
-                ctx.textAlign = "center";
-                ctx.font = "8px Arial";
-                ctx.fillText(gift, 100, 10);
-                ctx.restore();
+            wheels.forEach(wheel => {
+                drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
             });
-
-            ctx.beginPath();
-            ctx.arc(150, 150, 30, 0, 2 * Math.PI);
-            ctx.fillStyle = "#ffffff";
-            ctx.fill();
-        }
-
-        function spinWheel(wheel) {
-            const canvas = document.getElementById(wheel.canvasId);
-            const ctx = canvas.getContext("2d");
-            const gifts = wheel.gifts;
-            let angle = 0;
-            const spinTime = Math.random() * 3000 + 2000;
-            const spinInterval = 20;
-
-            const interval = setInterval(() => {
-                angle += 20 * Math.PI / 180;
-                drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], gifts);
-                ctx.translate(150, 150);
-                ctx.rotate(angle);
-                ctx.translate(-150, -150);
-            }, spinInterval);
-
-            setTimeout(() => {
-                clearInterval(interval);
-                const resultIndex = Math.floor(Math.random() * gifts.length);
-                document.getElementById(wheel.resultId).textContent = `Résultat: ${gifts[resultIndex]}`;
-            }, spinTime);
-        }
-
-        wheels.forEach(wheel => {
-            drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
-            document.getElementById(wheel.spinButtonId).addEventListener("click", () => spinWheel(wheel));
         });
     </script>
 </body>
