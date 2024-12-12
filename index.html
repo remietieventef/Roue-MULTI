@@ -108,7 +108,6 @@
             width: 45%;
         }
 
-        /* Plan vidéo */
         #videoContainer {
             display: none;
             position: fixed;
@@ -126,7 +125,6 @@
             border: none;
         }
 
-        /* Sécuriser la pop-up avec un champ de mot de passe */
         .password-container {
             margin: 20px 0;
         }
@@ -150,17 +148,10 @@
     </style>
 </head>
 <body>
-    <!-- Conteneur vidéo -->
     <div id="videoContainer">
-        <iframe id="backgroundVideo" 
-            src="https://www.youtube.com/embed/videoseries?list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT&autoplay=1&mute=1" 
-            frameborder="0" 
-            allow="autoplay; encrypted-media; fullscreen; accelerometer; picture-in-picture" 
-            allowfullscreen>
-        </iframe>
+        <iframe id="backgroundVideo" src="https://www.youtube.com/embed/videoseries?list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT&autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media; fullscreen; accelerometer; picture-in-picture" allowfullscreen></iframe>
     </div>
 
-    <!-- Conteneur principal -->
     <div class="container">
         <button id="customizeButton" class="top-right">Personnaliser</button>
         <div class="wheels-container">
@@ -170,7 +161,7 @@
                 <button id="spinButton1">Tourner</button>
             </div>
             <div class="wheel">
-                <canvas id="wheelCanvas2" width="300" height="300"></canvas>
+                <canvas id="wheelCanvas2" width="300" height="300"></canvas
                 <div id="result2">Résultat: ?</div>
                 <button id="spinButton2">Tourner</button>
             </div>
@@ -182,8 +173,7 @@
         </div>
     </div>
 
-    <!-- Popup de personnalisation protégée par un mot de passe -->
-    <div id="popup" class="popup hidden">
+    <div id="popup" class="popup">
         <div class="popup-content">
             <h2>Entrez le mot de passe pour accéder à la personnalisation</h2>
             <div class="password-container">
@@ -193,145 +183,42 @@
         </div>
     </div>
 
-    <!-- Popup de personnalisation -->
-    <div id="popupContent" class="popup hidden">
+    <div id="popupContent" class="popup">
         <div class="popup-content">
             <h2>Personnalisez les cadeaux</h2>
             <div class="popup-section">
                 <div class="popup-left">
                     <h3>Roue 1</h3>
-                    <label for="gift1_1">Cadeau 1 :</label><input type="text" id="gift1_1" value="10h demain 🛌"><br>
-                    <label for="gift2_1">Cadeau 2 :</label><input type="text" id="gift2_1" value="Pins"><br>
-                    <label for="gift3_1">Cadeau 3 :</label><input type="text" id="gift3_1" value="Partir 16h30"><br>
-                    <label for="gift4_1">Cadeau 4 :</label><input type="text" id="gift4_1" value="Lunch Anais"><br>
-                    <label for="gift5_1">Cadeau 5 :</label><input type="text" id="gift5_1" value=" 30€ "><br>
-                    <label for="gift6_1">Cadeau 6 :</label><input type="text" id="gift6_1" value="Jus d'orange par Hugo"><br>
-                    <label for="gift7_1">Cadeau 7 :</label><input type="text" id="gift7_1" value="Lunch Anais"><br>
-                    <label for="gift8_1">Cadeau 8 :</label><input type="text" id="gift8_1" value=" 30€ "><br>
-                    <label for="gift9_1">Cadeau 9 :</label><input type="text" id="gift9_1" value="Jus d'orange par Hugo"><br>
-                    <label for="gift10_1">Cadeau 10 :</label><input type="text" id="gift10_1" value="Lunch Anais"><br>
-                    <label for="gift11_1">Cadeau 11 :</label><input type="text" id="gift11_1" value=" 30€ "><br>
-                    <label for="gift12_1">Cadeau 12 :</label><input type="text" id="gift12_1" value="Jus d'orange par Hugo"><br>
+                    <label for="gift1_1">Cadeau 1 :</label><input type="text" id="gift1_1" value="Cadeau 1"><br>
+                    <!-- Ajouter des champs pour les cadeaux 7 à 12 -->
+                    <!-- Répéter pour chaque roue -->
                 </div>
                 <div class="popup-right">
                     <h3>Roue 2</h3>
-                    <label for="gift1_2">Cadeau 1 :</label><input type="text" id="gift1_2" value="Airpods"><br>
-                    <label for="gift2_2">Cadeau 2 :</label><input type="text" id="gift2_2" value="Train 150€"><br>
-                    <label for="gift3_2">Cadeau 3 :</label><input type="text" id="gift3_2" value="Dinner 2"><br>
-                    <label for="gift4_2">Cadeau 4 :</label><input type="text" id="gift4_2" value="Place concert"><br>
-                    <label for="gift5_2">Cadeau 5 :</label><input type="text" id="gift5_2" value="Place Disney"><br>
-                    <label for="gift6_2">Cadeau 6 :</label><input type="text" id="gift6_2" value="2 Place Ciné"><br>
+                    <!-- Champs pour roue 2 -->
                 </div>
             </div>
             <div class="popup-section">
                 <div class="popup-left">
                     <h3>Roue 3</h3>
-                    <label for="gift1_3">Cadeau 1 :</label><input type="text" id="gift1_3" value="Mini Video Proj"><br>
-                    <label for="gift2_3">Cadeau 2 :</label><input type="text" id="gift2_3" value="Iphone 600€"><br>
-                    <label for="gift3_3">Cadeau 3 :</label><input type="text" id="gift3_3" value="Billet d'avion 500€"><br>
-                    <label for="gift4_3">Cadeau 4 :</label><input type="text" id="gift4_3" value="Dommage"><br>
-                    <label for="gift5_3">Cadeau 5 :</label><input type="text" id="gift5_3" value="Apple Watch"><br>
-                    <label for="gift6_3">Cadeau 6 :</label><input type="text" id="gift6_3" value="Dyson Aspirateur"><br>
+                    <!-- Champs pour roue 3 -->
                 </div>
             </div>
             <button id="saveButton">Sauvegarder</button>
         </div>
     </div>
 
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        // Initialisation d'EmailJS avec votre clé publique
         emailjs.init("hoz22gRCGAh20qkjt");
-
         let lastMouseMoveTime = Date.now();
         const wheels = [
-            { canvasId: "wheelCanvas1", spinButtonId: "spinButton1", resultId: "result1", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] },
-            { canvasId: "wheelCanvas2", spinButtonId: "spinButton2", resultId: "result2", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] },
-            { canvasId: "wheelCanvas3", spinButtonId: "spinButton3", resultId: "result3", gifts: ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"] }
+            { canvasId: "wheelCanvas1", spinButtonId: "spinButton1", resultId: "result1", gifts: Array(12).fill(null).map((_, i) => `Cadeau ${i+1}`) },
+            { canvasId: "wheelCanvas2", spinButtonId: "spinButton2", resultId: "result2", gifts: Array(12).fill(null).map((_, i) => `Cadeau ${i+1}`) },
+            { canvasId: "wheelCanvas3", spinButtonId: "spinButton3", resultId: "result3", gifts: Array(12).fill(null).map((_, i) => `Cadeau ${i+1}`) }
         ];
 
-        function sendEmail(score) {
-            const emailData = {
-                to_email: "default@example.com",  // L'adresse e-mail par défaut à laquelle envoyer l'e-mail
-                subject: "Score de la roue de Noël",
-                message: `Félicitations ! Vous avez gagné : ${score}`,
-            };
-
-            emailjs.send("service_dh5ll1e", "template_83aobr9", emailData)
-                .then(function(response) {
-                    console.log('Succès !', response);
-                }, function(error) {
-                    console.log('Échec de l\'envoi :', error);
-                });
-        }
-
-        function checkMouseInactive() {
-            const currentTime = Date.now();
-            if (currentTime - lastMouseMoveTime > 30000) {
-                document.getElementById("videoContainer").style.display = "block";
-                document.querySelector(".container").style.display = "none";
-            }
-        }
-
-        document.body.addEventListener("mousemove", () => {
-            lastMouseMoveTime = Date.now();
-            document.getElementById("videoContainer").style.display = "none";
-            document.querySelector(".container").style.display = "flex";
-        });
-
-        setInterval(checkMouseInactive, 100);
-
-        document.getElementById("customizeButton").addEventListener("click", () => {
-            document.getElementById("popup").style.display = "flex";
-        });
-
-        // Vérification du mot de passe
-        document.getElementById("accessButton").addEventListener("click", () => {
-            const password = document.getElementById("passwordInput").value;
-            if (password === "weareeffrance") {
-                document.getElementById("popup").style.display = "none";
-                document.getElementById("popupContent").style.display = "flex";
-            } else {
-                alert("Mot de passe incorrect !");
-            }
-        });
-
-        document.getElementById("saveButton").addEventListener("click", () => {
-            wheels[0].gifts = [
-                document.getElementById("gift1_1").value,
-                document.getElementById("gift2_1").value,
-                document.getElementById("gift3_1").value,
-                document.getElementById("gift4_1").value,
-                document.getElementById("gift5_1").value,
-                document.getElementById("gift6_1").value
-                document.getElementById("gift7_1").value,
-                document.getElementById("gift8_1").value,
-                document.getElementById("gift9_1").value,
-                document.getElementById("gift10_1").value,
-                document.getElementById("gift11_1").value,
-                document.getElementById("gift12_1").value
-            ];
-            wheels[1].gifts = [
-                document.getElementById("gift1_2").value,
-                document.getElementById("gift2_2").value,
-                document.getElementById("gift3_2").value,
-                document.getElementById("gift4_2").value,
-                document.getElementById("gift5_2").value,
-                document.getElementById("gift6_2").value
-            ];
-            wheels[2].gifts = [
-                document.getElementById("gift1_3").value,
-                document.getElementById("gift2_3").value,
-                document.getElementById("gift3_3").value,
-                document.getElementById("gift4_3").value,
-                document.getElementById("gift5_3").value,
-                document.getElementById("gift6_3").value
-            ];
-
-            wheels.forEach(wheel => drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts)); // Couleurs plus neutres
-            document.getElementById("popupContent").style.display = "none";
-        });
-
+        // Fonction pour dessiner la roue
         function drawWheel(canvasId, colors, gifts) {
             const canvas = document.getElementById(canvasId);
             const ctx = canvas.getContext("2d");
@@ -340,7 +227,6 @@
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Dessin des segments
             gifts.forEach((gift, i) => {
                 const angle = i * arc;
                 ctx.beginPath();
@@ -359,13 +245,13 @@
                 ctx.restore();
             });
 
-            // Dessin du centre blanc
             ctx.beginPath();
             ctx.arc(150, 150, 30, 0, 2 * Math.PI);
             ctx.fillStyle = "#ffffff";
             ctx.fill();
         }
 
+        // Fonction pour faire tourner la roue
         function spinWheel(wheel) {
             const canvas = document.getElementById(wheel.canvasId);
             const ctx = canvas.getContext("2d");
@@ -391,6 +277,29 @@
             }, spinTime);
         }
 
+        // Événements pour les boutons
+        document.getElementById("customizeButton").addEventListener("click", () => {
+            document.getElementById("popup").style.display = "flex";
+        });
+
+        document.getElementById("accessButton").addEventListener("click", () => {
+            const password = document.getElementById("passwordInput").value;
+            if (password === "weareeffrance") {
+                document.getElementById("popup").style.display = "none";
+                document.getElementById("popupContent").style.display = "flex";
+            } else {
+                alert("Mot de passe incorrect !");
+            }
+        });
+
+        document.getElementById("saveButton").addEventListener("click", () => {
+            wheels.forEach((wheel, index) => {
+                wheel.gifts = Array.from({ length: 12 }, (_, i) => document.getElementById(`gift${i + 1}_${index + 1}`).value);
+                drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
+            });
+            document.getElementById("popupContent").style.display = "none";
+        });
+
         wheels.forEach(wheel => {
             drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
             document.getElementById(wheel.spinButtonId).addEventListener("click", () => spinWheel(wheel));
@@ -398,4 +307,3 @@
     </script>
 </body>
 </html>
-
