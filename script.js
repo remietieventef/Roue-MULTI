@@ -14,12 +14,12 @@ const result1 = document.getElementById("result1");
 const result2 = document.getElementById("result2");
 const result3 = document.getElementById("result3");
 
-let gifts1 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"];
-let gifts2 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"];
-let gifts3 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6"];
+let gifts1 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6", "Cadeau 7", "Cadeau 8", "Cadeau 9", "Cadeau 10", "Cadeau 11", "Cadeau 12"];
+let gifts2 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6", "Cadeau 7", "Cadeau 8", "Cadeau 9", "Cadeau 10", "Cadeau 11", "Cadeau 12"];
+let gifts3 = ["Cadeau 1", "Cadeau 2", "Cadeau 3", "Cadeau 4", "Cadeau 5", "Cadeau 6", "Cadeau 7", "Cadeau 8", "Cadeau 9", "Cadeau 10", "Cadeau 11", "Cadeau 12"];
 
 let startAngle1 = 0, startAngle2 = 0, startAngle3 = 0;
-const arc = (2 * Math.PI) / 6;
+const arc = (2 * Math.PI) / 12; // Changed to 12 sections
 let spinTimeout = null;
 let spinAngleStart = 0;
 let spinTime = 0;
@@ -34,7 +34,7 @@ function drawWheel(ctx, gifts, startAngle) {
         const angle = startAngle + i * arc;
 
         ctx.beginPath();
-        ctx.fillStyle = i % 2 === 0 ? "#ffcccc" : "#ff9999";
+        ctx.fillStyle = i % 2 === 0 ? "red" : "green"; // Alternance des couleurs rouge et vert
         ctx.moveTo(250, 250);
         ctx.arc(250, 250, 200, angle, angle + arc, false);
         ctx.fill();
@@ -42,7 +42,7 @@ function drawWheel(ctx, gifts, startAngle) {
         ctx.save();
         ctx.translate(250, 250);
         ctx.rotate(angle + arc / 2);
-        ctx.fillStyle = "#000";
+        ctx.fillStyle = "#fff";
         ctx.font = "16px Arial";
         ctx.textAlign = "center";
         ctx.fillText(gift, 150, 10);
@@ -106,7 +106,13 @@ document.getElementById("saveButton").addEventListener("click", () => {
         document.getElementById("gift3_1").value,
         document.getElementById("gift4_1").value,
         document.getElementById("gift5_1").value,
-        document.getElementById("gift6_1").value
+        document.getElementById("gift6_1").value,
+        document.getElementById("gift7_1").value,
+        document.getElementById("gift8_1").value,
+        document.getElementById("gift9_1").value,
+        document.getElementById("gift10_1").value,
+        document.getElementById("gift11_1").value,
+        document.getElementById("gift12_1").value
     ];
     gifts2 = [
         document.getElementById("gift1_2").value,
@@ -114,7 +120,13 @@ document.getElementById("saveButton").addEventListener("click", () => {
         document.getElementById("gift3_2").value,
         document.getElementById("gift4_2").value,
         document.getElementById("gift5_2").value,
-        document.getElementById("gift6_2").value
+        document.getElementById("gift6_2").value,
+        document.getElementById("gift7_2").value,
+        document.getElementById("gift8_2").value,
+        document.getElementById("gift9_2").value,
+        document.getElementById("gift10_2").value,
+        document.getElementById("gift11_2").value,
+        document.getElementById("gift12_2").value
     ];
     gifts3 = [
         document.getElementById("gift1_3").value,
@@ -122,7 +134,13 @@ document.getElementById("saveButton").addEventListener("click", () => {
         document.getElementById("gift3_3").value,
         document.getElementById("gift4_3").value,
         document.getElementById("gift5_3").value,
-        document.getElementById("gift6_3").value
+        document.getElementById("gift6_3").value,
+        document.getElementById("gift7_3").value,
+        document.getElementById("gift8_3").value,
+        document.getElementById("gift9_3").value,
+        document.getElementById("gift10_3").value,
+        document.getElementById("gift11_3").value,
+        document.getElementById("gift12_3").value
     ];
     document.getElementById("popup").classList.add("hidden");
     drawWheel(ctx1, gifts1, startAngle1);
