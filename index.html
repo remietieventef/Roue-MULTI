@@ -29,12 +29,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
         }
 
         .wheel {
-            margin: 0 20px;
-            text-align: center;
+            flex: 0 0 33%; /* Chaque roue prend un tiers de l'espace */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
         }
 
         canvas {
@@ -53,7 +55,7 @@
             color: white;
         }
 
-        #result1, #result2, #result3 {
+        .result {
             margin-top: 10px;
             font-size: 18px;
             font-weight: bold;
@@ -62,8 +64,6 @@
             border-radius: 10px;
             background-color: #e8f5e9;
             width: 200px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .top-right {
@@ -157,17 +157,17 @@
         <div class="wheels-container">
             <div class="wheel">
                 <canvas id="wheelCanvas1" width="300" height="300"></canvas>
-                <div id="result1">Résultat: ?</div>
+                <div id="result1" class="result">Résultat: ?</div>
                 <button id="spinButton1">Tourner</button>
             </div>
             <div class="wheel">
-                <canvas id="wheelCanvas2" width="300" height="300"></canvas
-                <div id="result2">Résultat: ?</div>
+                <canvas id="wheelCanvas2" width="300" height="300"></canvas>
+                <div id="result2" class="result">Résultat: ?</div>
                 <button id="spinButton2">Tourner</button>
             </div>
             <div class="wheel">
                 <canvas id="wheelCanvas3" width="300" height="300"></canvas>
-                <div id="result3">Résultat: ?</div>
+                <div id="result3" class="result">Résultat: ?</div>
                 <button id="spinButton3">Tourner</button>
             </div>
         </div>
@@ -188,7 +188,7 @@
             <h2>Personnalisez les cadeaux</h2>
             <div class="popup-section">
                 <div class="popup-left">
-                    <h3>Roue 1</h3>
+                   <h3>Roue 1</h3>
                     <!-- Champs pour les cadeaux 1 à 12 pour Roue 1 -->
                     <label for="gift1_1">Cadeau 1 :</label><input type="text" id="gift1_1" value="Cadeau 1"><br>
                     <label for="gift2_1">Cadeau 2 :</label><input type="text" id="gift2_1" value="Cadeau 2"><br>
