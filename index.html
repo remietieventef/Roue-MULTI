@@ -247,10 +247,10 @@
         emailjs.init("hoz22gRCGAh20qkjt");
         let lastMouseMoveTime = Date.now();
         const wheels = [
-            { canvasId: "wheelCanvas1", spinButtonId: "spinButton1", resultId: "result1", gifts: Array(12).fill(null).map((_, i) => `Cadeau ${i+1}`) },
-            { canvasId: "wheelCanvas2", spinButtonId: "spinButton2", resultId: "result2", gifts: Array(12).fill(null).map((_, i) => `Cadeau ${i+1}`) },
-            { canvasId: "wheelCanvas3", spinButtonId: "spinButton3", resultId: "result3", gifts: Array(12).fill(null).map((_, i) => `Cadeau ${i+1}`) }
-        ];
+    { canvasId: "wheelCanvas1", spinButtonId: "spinButton1", resultId: "result1", gifts: Array(12).fill("Cadeau 🎁") },
+    { canvasId: "wheelCanvas2", spinButtonId: "spinButton2", resultId: "result2", gifts: Array(12).fill("Cadeau 🎁") },
+    { canvasId: "wheelCanvas3", spinButtonId: "spinButton3", resultId: "result3", gifts: Array(12).fill("Cadeau 🎁") }
+];
 
         // Fonction pour dessiner la roue
         function drawWheel(canvasId, colors, gifts) {
