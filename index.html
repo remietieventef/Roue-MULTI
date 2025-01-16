@@ -12,331 +12,219 @@
             background: url('Roue Noel.jpg') no-repeat center center fixed;
             background-size: cover;
             overflow: hidden;
-        }
-
+         }
         .container {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            width: 90%;
+            margin: 0 auto;
         }
-
-        .wheels-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .progress {
+            background-color: #f3f3f3;
+            border-radius: 4px;
+            overflow: hidden;
+            height: 10px;
+            margin-left: 10px;
+            width: 60%;
+            display: inline-block;
+            vertical-align: middle;
         }
-
-        .wheel {
-            flex: 0 0 33%; /* Chaque roue prend un tiers de l'espace */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 10px;
+        .progress-bar {
+            height: 10px;
+            width: 0%;
         }
-
-        canvas {
-            border: 2px solid #fff;
-            border-radius: 50%;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
         }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
-            color: white;
+        table, th, td {
+            border: 1px solid #ddd;
         }
-
-        .result {
-            margin-top: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px;
-            border: 2px solid #4CAF50;
-            border-radius: 10px;
-            background-color: #e8f5e9;
-            width: 200px;
+        th, td {
+            padding: 4px;
+            text-align: left;
+            font-size: 10px;
+            vertical-align: middle;
+            width: 25%;
         }
-
-        .top-right {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .hidden {
+            display: none;
         }
-
         .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
             display: none;
+            font-size: 12px;
+        }
+        .popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 3;
-            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        button {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        .stats-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             align-items: center;
         }
-
-        .popup-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .popup-section {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .popup-left, .popup-right {
-            width: 45%;
-        }
-
-        #videoContainer {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            background: black;
-        }
-
-        #backgroundVideo {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .password-container {
-            margin: 20px 0;
-        }
-
-        #passwordInput {
-            padding: 10px;
-            font-size: 16px;
-            width: 200px;
-            margin-bottom: 20px;
-        }
-
-        #accessButton {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
+        .stats-form label, .stats-form input, .stats-form select, .stats-form button {
+            font-size: 10px;
         }
     </style>
 </head>
 <body>
-    <div id="videoContainer">
-        <iframe id="backgroundVideo" src="https://www.youtube.com/embed/videoseries?list=PLiVDPajlpFZUc05R7sdyKSLjNznlP4hIT&autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media; fullscreen; accelerometer; picture-in-picture" allowfullscreen></iframe>
-    </div>
-
     <div class="container">
-        <button id="customizeButton" class="top-right">Personnaliser</button>
-        <div class="wheels-container">
-            <div class="wheel">
-                <canvas id="wheelCanvas1" width="300" height="300"></canvas>
-                <div id="result1" class="result">Résultat: ?</div>
-                <button id="spinButton1">Tourner</button>
-            </div>
-            <div class="wheel">
-                <canvas id="wheelCanvas2" width="300" height="300"></canvas>
-                <div id="result2" class="result">Résultat: ?</div>
-                <button id="spinButton2">Tourner</button>
-            </div>
-            <div class="wheel">
-                <canvas id="wheelCanvas3" width="300" height="300"></canvas>
-                <div id="result3" class="result">Résultat: ?</div>
-                <button id="spinButton3">Tourner</button>
-            </div>
-        </div>
+        <h1 style="font-size: 16px;">Sales Team Comparison</h1>
+
+        <table id="leaderboard">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of Calls</th>
+                    <th>Number of Calls Reached</th>
+                    <th>Number of PQ Sent/Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows dynamically generated -->
+            </tbody>
+        </table>
+
+        <h2 style="font-size: 14px;">Update Statistics</h2>
+        <form id="stats-form" class="stats-form">
+            <label for="staff-select">Select Staff:</label>
+            <select id="staff-select" name="staff-select" required>
+                <!-- Staff options dynamically generated -->
+            </select>
+            <label for="calls">Number of Calls:</label>
+            <input type="number" id="calls" name="calls" required>
+            <label for="calls-reached">Number of Calls Reached:</label>
+            <input type="number" id="calls-reached" name="calls-reached" required>
+            <label for="pq">Number of PQ Sent/Created:</label>
+            <input type="number" id="pq" name="pq" required>
+            <button type="submit">Update</button>
+        </form>
     </div>
 
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <h2>Entrez le mot de passe pour accéder à la personnalisation</h2>
-            <div class="password-container">
-                <input type="password" id="passwordInput" placeholder="Mot de passe">
-                <button id="accessButton">Accéder</button>
-            </div>
-        </div>
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup">
+        <h3 style="font-size: 14px;">Hide Staff</h3>
+        <p style="font-size: 12px;">Do you want to hide this staff member?</p>
+        <select id="hide-staff-select" name="hide-staff-select">
+            <!-- Staff options dynamically generated -->
+        </select>
+        <button id="confirm-hide">Hide</button>
+        <button id="cancel-hide">Cancel</button>
     </div>
 
-<div id="popupContent" class="popup">
-    <div class="popup-content">
-        <h2>Personnalisez les cadeaux</h2>
-        <div class="popup-section">
-            <div class="wheel-settings">
-                <h3>Roue 3</h3>
-                <label for="gift1_1">Cadeau 1 :</label><input type="text" id="gift1_1" value="50€ 🤑"><br>
-                <label for="gift2_1">Cadeau 2 :</label><input type="text" id="gift2_1" value="Lunch Anais 🍔"><br>
-                <label for="gift3_1">Cadeau 3 :</label><input type="text" id="gift3_1" value="100€ 🤑"><br>
-                <label for="gift4_1">Cadeau 4 :</label><input type="text" id="gift4_1" value="Pins 🥕"><br>
-                <label for="gift5_1">Cadeau 5 :</label><input type="text" id="gift5_1" value="30€ 🤑"><br>
-                <label for="gift6_1">Cadeau 6 :</label><input type="text" id="gift6_1" value="Cadeau  🎁"><br>
-                <label for="gift7_1">Cadeau 7 :</label><input type="text" id="gift7_1" value="100€ 🤑"><br>
-                <label for="gift8_1">Cadeau 8 :</label><input type="text" id="gift8_1" value="Lunch Offert 🍔"><br>
-                <label for="gift9_1">Cadeau 9 :</label><input type="text" id="gift9_1" value="30€ 🤑"><br>
-                <label for="gift10_1">Cadeau 10 :</label><input type="text" id="gift10_1" value="Training Pierre"><br>
-                <label for="gift11_1">Cadeau 11 :</label><input type="text" id="gift11_1" value="30€ 🤑"><br>
-                <label for="gift12_1">Cadeau 12 :</label><input type="text" id="gift12_1" value="3€/sem ILS/Y"><br>
-                    <!-- Champs pour les cadeaux 1 à 12 pour Roue 3 -->
-                <!-- Ajout des champs pour Roue 3 ici -->
-                <!-- Utilisation de boucle ou de copie manuelle pour remplir les champs -->
-            </div>
-            <div class="wheel-settings">
-                <h3>Roue 2</h3>
-                <label for="gift1_2">Cadeau 1 :</label><input type="text" id="gift1_2" value="Airpods 🎵"><br>
-                <label for="gift2_2">Cadeau 2 :</label><input type="text" id="gift2_2" value="Train 150€ 🚆"><br>
-                <label for="gift3_2">Cadeau 3 :</label><input type="text" id="gift3_2" value="Dinner 2pers 🍷"><br>
-                <label for="gift4_2">Cadeau 4 :</label><input type="text" id="gift4_2" value="Place concert 🎸"><br>
-                <label for="gift5_2">Cadeau 5 :</label><input type="text" id="gift5_2" value="Place disney 🎟️"><br>
-                <label for="gift6_2">Cadeau 6 :</label><input type="text" id="gift6_2" value="200€ Gift Card 🎁"><br>
-                <label for="gift7_2">Cadeau 7 :</label><input type="text" id="gift7_2" value="Gourde Stanley 🥤"><br>
-                <label for="gift8_2">Cadeau 8 :</label><input type="text" id="gift8_2" value="Lunch Adeline 🍔"><br>
-                <label for="gift9_2">Cadeau 9 :</label><input type="text" id="gift9_2" value="4€ Y/U 2.5€ AY"><br>
-                <label for="gift10_2">Cadeau 10 :</label><input type="text" id="gift10_2" value="Un Mégaphone 📢"><br>
-                <label for="gift11_2">Cadeau 11 :</label><input type="text" id="gift11_2" value="100€ Gift Card 🎁"><br>
-                <label for="gift12_2">Cadeau 12 :</label><input type="text" id="gift12_2" value="Polaroid 📷"><br>
-            </div>
-        </div>
-        <div class="popup-section">
-            <div class="wheel-settings">
-                <h3>Roue 1</h3>
-                <label for="gift1_3">Cadeau 1 :</label><input type="text" id="gift1_3" value="Mini Video Proj 📽️"><br>
-                <label for="gift2_3">Cadeau 2 :</label><input type="text" id="gift2_3" value="Iphone 600€ 🤳"><br>
-                <label for="gift3_3">Cadeau 3 :</label><input type="text" id="gift3_3" value="Billet Avion 400€ ✈️"><br>
-                <label for="gift4_3">Cadeau 4 :</label><input type="text" id="gift4_3" value="Dommage 😪"><br>
-                <label for="gift5_3">Cadeau 5 :</label><input type="text" id="gift5_3" value="Apple Watch ⌚"><br>
-                <label for="gift6_3">Cadeau 6 :</label><input type="text" id="gift6_3" value="Dyson 🧹"><br>
-                <label for="gift7_3">Cadeau 7 :</label><input type="text" id="gift7_3" value="Disney Ultimate 🎡"><br>
-                <label for="gift8_3">Cadeau 8 :</label><input type="text" id="gift8_3" value="PS5 🎮"><br>
-                <label for="gift9_3">Cadeau 9 :</label><input type="text" id="gift9_3" value="Une nuit d'hotel 🛌"><br>
-                <label for="gift10_3">Cadeau 10 :</label><input type="text" id="gift10_3" value="Airpods Max 🎧"><br>
-                <label for="gift11_3">Cadeau 11 :</label><input type="text" id="gift11_3" value="Chausette Noel 🎄"><br>
-                <label for="gift12_3">Cadeau 12 :</label><input type="text" id="gift12_3" value="Surprise 🎁"><br>
-            </div>
-        </div>
-        <button id="saveButton">Sauvegarder</button>
-    </div>
-</div>
-
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        emailjs.init("hoz22gRCGAh20qkjt");
-        let lastMouseMoveTime = Date.now();
-        const wheels = [
-    { canvasId: "wheelCanvas1", spinButtonId: "spinButton1", resultId: "result1", gifts: Array(12).fill("Cadeau 🎁") },
-    { canvasId: "wheelCanvas2", spinButtonId: "spinButton2", resultId: "result2", gifts: Array(12).fill("Cadeau 🎁") },
-    { canvasId: "wheelCanvas3", spinButtonId: "spinButton3", resultId: "result3", gifts: Array(12).fill("Cadeau 🎁") }
-];
+        const staffList = [
+            "Alexane Diez Rannou", "Anna Nguyen", "Anne Chevreux", "Carla Berlinches", "Chloe Anselme", "Emma Brault", "Guilhem Coulon", "Ines Darhi", "Kathia Corrales", "Leo Jaffrain", "Leonie Groebmueller", "LeoPaul Cazaudumec", "Maialen Roucheyrolle", "Manon Gascogne", "Marie Leger", "Martin Vandenheede", "Miriana Migliozzi", "Raphael Rigault"
+        ];
 
-        // Fonction pour dessiner la roue
-        function drawWheel(canvasId, colors, gifts) {
-            const canvas = document.getElementById(canvasId);
-            const ctx = canvas.getContext("2d");
-            const segments = gifts.length;
-            const arc = (2 * Math.PI) / segments;
+        const leaderboard = document.getElementById('leaderboard').querySelector('tbody');
+        const staffSelect = document.getElementById('staff-select');
+        const hideStaffSelect = document.getElementById('hide-staff-select');
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Populate table and dropdowns
+        staffList.forEach(staff => {
+            // Add rows to leaderboard
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${staff}</td>
+                <td>
+                    <div>0</div>
+                    <div class="progress"><div class="progress-bar" style="width: 0%;"></div></div>
+                </td>
+                <td>
+                    <div>0</div>
+                    <div class="progress"><div class="progress-bar" style="width: 0%;"></div></div>
+                </td>
+                <td>
+                    <div>0</div>
+                    <div class="progress"><div class="progress-bar" style="width: 0%;"></div></div>
+                </td>
+            `;
+            leaderboard.appendChild(row);
 
-            gifts.forEach((gift, i) => {
-                const angle = i * arc;
-                ctx.beginPath();
-                ctx.fillStyle = colors[i % colors.length];
-                ctx.moveTo(150, 150);
-                ctx.arc(150, 150, 150, angle, angle + arc);
-                ctx.fill();
+            // Add options to dropdowns
+            const option = document.createElement('option');
+            option.value = staff;
+            option.textContent = staff;
+            staffSelect.appendChild(option);
 
-                ctx.save();
-                ctx.translate(150, 150);
-                ctx.rotate(angle + arc / 2);
-                ctx.fillStyle = "black";
-                ctx.textAlign = "center";
-                ctx.font = "14px Arial";
-                ctx.fillText(gift, 100, 10);
-                ctx.restore();
+            const hideOption = document.createElement('option');
+            hideOption.value = staff;
+            hideOption.textContent = staff;
+            hideStaffSelect.appendChild(hideOption);
+        });
+
+        // Update statistics
+        document.getElementById('stats-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const selectedStaff = staffSelect.value;
+            const calls = parseInt(document.getElementById('calls').value, 10);
+            const callsReached = parseInt(document.getElementById('calls-reached').value, 10);
+            const pq = parseInt(document.getElementById('pq').value, 10);
+
+            const rows = leaderboard.querySelectorAll('tr');
+            rows.forEach(row => {
+                if (row.cells[0].textContent === selectedStaff) {
+                    row.cells[1].querySelector('div').textContent = calls;
+                    row.cells[1].querySelector('.progress-bar').style.width = `${(calls / 300) * 100}%`;
+
+                    row.cells[2].querySelector('div').textContent = callsReached;
+                    row.cells[2].querySelector('.progress-bar').style.width = `${(callsReached / 60) * 100}%`;
+
+                    row.cells[3].querySelector('div').textContent = pq;
+                    row.cells[3].querySelector('.progress-bar').style.width = `${(pq / 8) * 100}%`;
+                }
             });
+        });
 
-            ctx.beginPath();
-            ctx.arc(150, 150, 30, 0, 2 * Math.PI);
-            ctx.fillStyle = "#ffffff";
-            ctx.fill();
+        // Hide staff functionality
+        document.getElementById('confirm-hide').addEventListener('click', function() {
+            const selectedStaff = hideStaffSelect.value;
+            const rows = leaderboard.querySelectorAll('tr');
+            rows.forEach(row => {
+                if (row.cells[0].textContent === selectedStaff) {
+                    row.classList.add('hidden');
+                }
+            });
+            closePopup();
+        });
+
+        document.getElementById('cancel-hide').addEventListener('click', closePopup);
+
+        function closePopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
         }
 
-        // Fonction pour faire tourner la roue
-        function spinWheel(wheel) {
-            const canvas = document.getElementById(wheel.canvasId);
-            const ctx = canvas.getContext("2d");
-            const gifts = wheel.gifts;
-            let angle = 0;
-            const spinTime = Math.random() * 3000 + 2000;
-            const spinInterval = 20;
-
-            const interval = setInterval(() => {
-                angle += 20 * Math.PI / 180;
-                drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], gifts);
-                ctx.translate(150, 150);
-                ctx.rotate(angle);
-                ctx.translate(-150, -150);
-            }, spinInterval);
-
-            setTimeout(() => {
-                clearInterval(interval);
-                const resultIndex = Math.floor(Math.random() * gifts.length);
-                document.getElementById(wheel.resultId).textContent = `Résultat: ${gifts[resultIndex]}`;
-                // Envoi de l'e-mail avec le score
-                sendEmail(gifts[resultIndex]);
-            }, spinTime);
+        function showPopup() {
+            document.getElementById('popup-overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
         }
 
-        // Événements pour les boutons
-        document.getElementById("customizeButton").addEventListener("click", () => {
-            document.getElementById("popup").style.display = "flex";
-        });
-
-        document.getElementById("accessButton").addEventListener("click", () => {
-            const password = document.getElementById("passwordInput").value;
-            if (password === "weareeffrance") {
-                document.getElementById("popup").style.display = "none";
-                document.getElementById("popupContent").style.display = "flex";
-            } else {
-                alert("Mot de passe incorrect !");
-            }
-        });
-
-        document.getElementById("saveButton").addEventListener("click", () => {
-            wheels.forEach((wheel, index) => {
-                wheel.gifts = Array.from({ length: 12 }, (_, i) => document.getElementById(`gift${i + 1}_${index + 1}`).value);
-                drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
-            });
-            document.getElementById("popupContent").style.display = "none";
-        });
-
-        wheels.forEach(wheel => {
-            drawWheel(wheel.canvasId, ["#F0E68C", "#D1E8E2"], wheel.gifts);
-            document.getElementById(wheel.spinButtonId).addEventListener("click", () => spinWheel(wheel));
+        window.addEventListener('load', function() {
+            const hideButton = document.createElement('button');
+            hideButton.textContent = 'Hide Staff';
+            hideButton.onclick = showPopup;
+            document.querySelector('.container').appendChild(hideButton);
         });
     </script>
 </body>
